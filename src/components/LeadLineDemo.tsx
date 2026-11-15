@@ -2,22 +2,37 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { industries, industryTabLabels, type HeroDemoContent } from "@/content/industries";
+import { HandArrow } from "./SketchPrimitives";
 
 interface LeadLineDemoProps {
-  onAnimationStateChange?: (state: { activeStop: number; dotProgress: number }) => void;
-  staticMode?: boolean; // For /industries page where it's shown static and complete
-  forcedIndustry?: string; // If static for a specific industry
+  forcedTab?: string;
 }
 
-export function LeadLineDemo({
-  staticMode = false,
-  forcedIndustry,
-}: LeadLineDemoProps) {
-  const [selectedTab, setSelectedTab] = useState(forcedIndustry || "trades");
-  const [activeStop, setActiveStop] = useState(staticMode ? 4 : 4); // 0-indexed (0 to 4 = 1 to 5)
-  const [lineProgress, setLineProgress] = useState(staticMode ? 1 : 1);
+export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
+  const [selectedTab, setSelectedTab] = useState(forcedTab || "trades");
+  const [activeStop, setActiveStop] = useState(4); // 0..4
+  const [lineProgress, setLineProgress] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+
+  // Sync forcedTab if parent changes it
+  useEffect(() => {
+    if (forcedTab && forcedTab !== selectedTab) {
+      handleSelectTab(forcedTab);
+    }
+  }, [forcedTab]);
+
+  // Listen for industry selection custom events
+  useEffect(() => {
+    const handleCustomSelect = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail) {
+        handleSelectTab(customEvent.detail);
+      }
+    };
+    window.addEventListener("marketinc-select-industry", handleCustomSelect);
+    return () => window.removeEventListener("marketinc-select-industry", handleCustomSelect);
+  }, [reducedMotion]);
 
   const currentIndustry =
     industries.find((i) => i.slug === selectedTab) || industries[0];
@@ -26,12 +41,10 @@ export function LeadLineDemo({
   const tabListRef = useRef<HTMLDivElement>(null);
   const animationTimerRef = useRef<NodeJS.Timeout[]>([]);
 
-  // Check reduced motion
   useEffect(() => {
     if (typeof window !== "undefined") {
       const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
       setReducedMotion(mediaQuery.matches);
-
       const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
       mediaQuery.addEventListener("change", handler);
       return () => mediaQuery.removeEventListener("change", handler);
@@ -44,7 +57,7 @@ export function LeadLineDemo({
   }, []);
 
   const runAnimation = useCallback((durationMs: number) => {
-    if (reducedMotion || staticMode) {
+    if (reducedMotion) {
       setActiveStop(4);
       setLineProgress(1);
       return;
@@ -67,31 +80,25 @@ export function LeadLineDemo({
       }, stepInterval * i);
       animationTimerRef.current.push(timer);
     }
-  }, [clearTimers, reducedMotion, staticMode]);
+  }, [clearTimers, reducedMotion]);
 
   // Initial load animation (~4.5s)
   useEffect(() => {
-    if (staticMode || reducedMotion) return;
+    if (reducedMotion) return;
 
-    // Small delay to ensure paint and layout stability
     const initialDelay = setTimeout(() => {
       runAnimation(4500);
-    }, 600);
+    }, 1500);
 
     return () => {
       clearTimeout(initialDelay);
       clearTimers();
     };
-  }, [staticMode, reducedMotion, runAnimation, clearTimers]);
+  }, [reducedMotion, runAnimation, clearTimers]);
 
-  // Handle tab change
   const handleSelectTab = (slug: string) => {
-    if (slug === selectedTab && !staticMode) {
-      handleReplay();
-      return;
-    }
     setSelectedTab(slug);
-    if (!staticMode && !reducedMotion) {
+    if (!reducedMotion) {
       runAnimation(2500);
     }
   };
@@ -100,7 +107,6 @@ export function LeadLineDemo({
     runAnimation(2500);
   };
 
-  // Keyboard navigation for tabs
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
     const totalTabs = industryTabLabels.length;
     let newIndex = index;
@@ -121,28 +127,34 @@ export function LeadLineDemo({
     const nextSlug = industryTabLabels[newIndex].slug;
     handleSelectTab(nextSlug);
 
-    // Focus the new tab
     const buttons = tabListRef.current?.querySelectorAll<HTMLButtonElement>("button[role='tab']");
     buttons?.[newIndex]?.focus();
   };
 
   return (
     <div
-      className="w-full bg-surface rounded-[24px] border border-line p-6 md:p-8 lg:p-10 transition-shadow"
+      className="w-full bg-navy-raised rounded-[20px] border border-line p-5 sm:p-7 transition-shadow"
       style={{
-        boxShadow: "0 24px 60px -30px rgba(22, 30, 56, 0.35)",
+        boxShadow: "0 24px 60px -30px rgba(16, 22, 44, 0.7)",
       }}
       aria-live="off"
     >
-      {/* Header controls (Tabs + Replay button) */}
-      {!staticMode && (
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 md:mb-10 pb-6 border-b border-line">
-          {/* Tabs: horizontal scrolling on mobile */}
+      {/* Handwriting note pointing to tabs: "pick your industry" */}
+      <div className="flex items-center gap-2 mb-2 text-butter select-none">
+        <span className="font-hand text-[22px] leading-none">
+          pick your industry
+        </span>
+        <HandArrow direction="down-right" color="butter" className="w-6 h-5" />
+      </div>
+
+      {/* Tabs Row (sideways scrolling with fade on right edge on mobile) */}
+      <div className="relative mb-6 pb-4 border-b border-line flex items-center justify-between gap-3">
+        <div className="relative flex-1 overflow-hidden">
           <div
             ref={tabListRef}
             role="tablist"
             aria-label="Industries"
-            className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1"
+            className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 pr-6"
           >
             {industryTabLabels.map((tab, idx) => {
               const isSelected = selectedTab === tab.slug;
@@ -156,10 +168,10 @@ export function LeadLineDemo({
                   tabIndex={isSelected ? 0 : -1}
                   onClick={() => handleSelectTab(tab.slug)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className={`px-4 py-2 rounded-[999px] text-[0.9375rem] font-medium transition-colors duration-150 select-none whitespace-nowrap min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 ${
+                  className={`px-3.5 py-1.5 rounded-[999px] text-[0.875rem] font-medium transition-colors duration-150 select-none whitespace-nowrap min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint ${
                     isSelected
-                      ? "bg-ink text-white"
-                      : "bg-paper text-ink-soft hover:text-ink hover:bg-paper/80"
+                      ? "bg-mint text-navy font-bold"
+                      : "bg-navy-deep text-mist hover:text-white border border-line"
                   }`}
                 >
                   {tab.label}
@@ -167,154 +179,96 @@ export function LeadLineDemo({
               );
             })}
           </div>
-
-          {/* Replay Button */}
-          <button
-            type="button"
-            onClick={handleReplay}
-            disabled={isPlaying}
-            className="text-[0.875rem] font-medium text-ink-soft hover:text-ink transition-colors min-h-[44px] px-2 flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink rounded-sm"
-            aria-label="Replay lead journey"
-          >
-            <span aria-hidden="true" className="text-xs">↻</span> Replay
-          </button>
-        </div>
-      )}
-
-      {/* Main Demo Container */}
-      <div
-        id={`panel-${selectedTab}`}
-        role={staticMode ? undefined : "tabpanel"}
-        aria-labelledby={`tab-${selectedTab}`}
-      >
-        {/* DESKTOP LAYOUT (Horizontal) */}
-        <div className="hidden lg:block">
-          {/* The Horizontal Line and 5 Stops */}
-          <div className="relative pt-4 pb-8">
-            {/* Base track */}
-            <div className="absolute top-[22px] left-[4%] right-[4%] h-[2px] bg-line z-0" />
-            {/* Travelled mint track */}
-            <div
-              className="absolute top-[22px] left-[4%] h-[2px] bg-dot z-0 transition-[width] duration-300 ease-out"
-              style={{
-                width: `${lineProgress * 92}%`,
-              }}
-            />
-
-            {/* Stops Grid */}
-            <div className="relative z-10 grid grid-cols-5 gap-4">
-              {[
-                { num: 1, label: "Found" },
-                { num: 2, label: "Landed" },
-                { num: 3, label: "Enquired" },
-                { num: 4, label: "Followed up" },
-                { num: 5, label: "Booked" },
-              ].map((stop, idx) => {
-                const isPassedOrCurrent = idx <= activeStop;
-                return (
-                  <div key={stop.num} className="flex flex-col items-start">
-                    {/* Circle marker */}
-                    <div className="relative flex items-center justify-center w-6 h-6 mb-3">
-                      <div
-                        className={`w-3.5 h-3.5 rounded-full transition-colors duration-300 ${
-                          isPassedOrCurrent ? "bg-dot" : "border-2 border-line bg-surface"
-                        }`}
-                      />
-                    </div>
-
-                    {/* Stop Number & Name */}
-                    <div
-                      className={`transition-opacity duration-300 ${
-                        isPassedOrCurrent ? "opacity-100" : "opacity-75"
-                      }`}
-                    >
-                      <span className="tabular-nums font-bold text-ink text-[1.0625rem]">
-                        {stop.num} {stop.label}
-                      </span>
-                    </div>
-
-                    {/* Fragment Card */}
-                    <div
-                      className={`w-full mt-4 transition-opacity duration-300 ${
-                        isPassedOrCurrent ? "opacity-100" : "opacity-75"
-                      }`}
-                    >
-                      <FragmentContent
-                        stopIndex={idx}
-                        data={demoData}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          {/* Subtle fade on right edge so last tab is not cut off abruptly */}
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-navy-raised to-transparent sm:hidden" />
         </div>
 
-        {/* MOBILE LAYOUT (Vertical) */}
-        <div className="lg:hidden">
-          <div className="relative pl-7 space-y-8">
-            {/* Vertical Base Line */}
-            <div className="absolute top-2 bottom-8 left-[9px] w-[2px] bg-line z-0" />
-            {/* Vertical Mint Line */}
-            <div
-              className="absolute top-2 left-[9px] w-[2px] bg-dot z-0 transition-[height] duration-300 ease-out"
-              style={{
-                height: `${lineProgress * 95}%`,
-              }}
-            />
-
-            {[
-              { num: 1, label: "Found" },
-              { num: 2, label: "Landed" },
-              { num: 3, label: "Enquired" },
-              { num: 4, label: "Followed up" },
-              { num: 5, label: "Booked" },
-            ].map((stop, idx) => {
-              const isPassedOrCurrent = idx <= activeStop;
-              return (
-                <div key={stop.num} className="relative">
-                  {/* Circle Marker on the left line */}
-                  <div className="absolute -left-7 top-1 flex items-center justify-center w-5 h-5">
-                    <div
-                      className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                        isPassedOrCurrent ? "bg-dot" : "border-2 border-line bg-surface"
-                      }`}
-                    />
-                  </div>
-
-                  {/* Stop Number and Label */}
-                  <div
-                    className={`transition-opacity duration-300 mb-2.5 ${
-                      isPassedOrCurrent ? "opacity-100" : "opacity-75"
-                    }`}
-                  >
-                    <span className="tabular-nums font-bold text-ink text-[1rem]">
-                      {stop.num} {stop.label}
-                    </span>
-                  </div>
-
-                  {/* Fragment Card */}
-                  <div
-                    className={`transition-opacity duration-300 ${
-                      isPassedOrCurrent ? "opacity-100" : "opacity-75"
-                    }`}
-                  >
-                    <FragmentContent
-                      stopIndex={idx}
-                      data={demoData}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        {/* Replay button */}
+        <button
+          type="button"
+          onClick={handleReplay}
+          disabled={isPlaying}
+          className="text-[0.875rem] font-medium text-mist hover:text-white transition-colors min-h-[40px] px-2 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm flex-shrink-0"
+          aria-label="Replay lead journey"
+        >
+          <span aria-hidden="true" className="text-sm">↻</span> Replay
+        </button>
       </div>
 
-      {/* Mandatory caption */}
-      <div className="mt-8 pt-4 border-t border-line text-left">
-        <p className="text-[0.875rem] text-ink-soft m-0">
+      {/* VERTICAL LAYOUT FOR EVERY SCREEN SIZE */}
+      <div
+        id={`panel-${selectedTab}`}
+        role="tabpanel"
+        aria-labelledby={`tab-${selectedTab}`}
+        className="relative pl-7 space-y-6"
+      >
+        {/* Vertical Track Base Line (starts at top 6px, perfectly centered on markers) */}
+        <div
+          className="absolute top-[10px] bottom-[28px] left-[9px] w-[2px] bg-line z-0"
+          aria-hidden="true"
+        />
+
+        {/* Vertical Mint Line (travelled portion) */}
+        <div
+          className="absolute top-[10px] left-[9px] w-[2px] bg-mint z-0 transition-[height] duration-300 ease-out"
+          style={{
+            height: `calc(${lineProgress * 100}% - ${lineProgress * 30}px)`,
+          }}
+          aria-hidden="true"
+        />
+
+        {[
+          { num: 1, label: "Found", tilt: "-rotate-[1deg]" },
+          { num: 2, label: "Landed", tilt: "rotate-[1deg]" },
+          { num: 3, label: "Enquired", tilt: "-rotate-[1deg]" },
+          { num: 4, label: "Followed up", tilt: "rotate-[1deg]" },
+          { num: 5, label: "Booked", tilt: "-rotate-[1deg]" },
+        ].map((stop, idx) => {
+          const isPassedOrCurrent = idx <= activeStop;
+          return (
+            <div key={stop.num} className="relative">
+              {/* Dot marker on left vertical line (fixed to start at top of line) */}
+              <div
+                className="absolute -left-7 top-1 flex items-center justify-center w-5 h-5 z-10"
+                aria-hidden="true"
+              >
+                <div
+                  className={`w-3.5 h-3.5 rounded-full transition-colors duration-300 ${
+                    isPassedOrCurrent ? "bg-mint ring-4 ring-mint/20" : "border-2 border-line bg-navy-deep"
+                  }`}
+                />
+              </div>
+
+              {/* Stop Number and Label in Sentence Case */}
+              <div
+                className={`transition-opacity duration-300 mb-2 flex items-baseline gap-2 ${
+                  isPassedOrCurrent ? "opacity-100" : "opacity-85"
+                }`}
+              >
+                <span className="tabular-nums font-bold text-mint text-[0.875rem]">
+                  {stop.num}
+                </span>
+                <span className="font-display font-bold text-white text-[1rem]">
+                  {stop.label}
+                </span>
+              </div>
+
+              {/* Fragment Card: Navy-deep background, min 14px text, tilted -1° or 1° */}
+              <div
+                className={`tilt-card rounded-[14px] bg-navy-deep border border-line p-4 transition-opacity duration-300 ${
+                  stop.tilt
+                } ${isPassedOrCurrent ? "opacity-100" : "opacity-85"}`}
+              >
+                <VerticalFragmentContent stopIndex={idx} data={demoData} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Mandatory illustrative caption */}
+      <div className="mt-6 pt-4 border-t border-line text-left">
+        <p className="text-[0.875rem] text-mist m-0">
           Illustrative example, not client data.
         </p>
       </div>
@@ -322,8 +276,8 @@ export function LeadLineDemo({
   );
 }
 
-// Subcomponents for the 5 hand-built interface fragments
-function FragmentContent({
+// Fragment Content for Vertical Demo (Sentence Case, min 14px text)
+function VerticalFragmentContent({
   stopIndex,
   data,
 }: {
@@ -333,20 +287,18 @@ function FragmentContent({
   switch (stopIndex) {
     case 0: // Found
       return (
-        <div className="bg-paper rounded-[14px] border border-line p-3.5 text-left min-h-[140px] flex flex-col justify-between">
-          {/* Miniature Search Box */}
-          <div className="bg-surface rounded-[8px] border border-line px-2.5 py-1.5 text-[0.8125rem] text-ink-soft mb-2.5 truncate">
+        <div className="space-y-2 text-left">
+          <div className="bg-navy-raised rounded-[8px] border border-line px-3 py-1.5 text-[0.875rem] text-mist truncate">
             🔍 {data.found.query}
           </div>
-          {/* Miniature Ad Result */}
-          <div>
-            <div className="inline-block px-1.5 py-0.5 rounded-[4px] border border-ink/20 text-[0.6875rem] font-bold text-ink leading-none mb-1">
+          <div className="pt-1">
+            <span className="inline-block px-2 py-0.5 rounded-[4px] bg-white/10 text-[0.875rem] font-bold text-white leading-none mb-1">
               Ad
-            </div>
-            <p className="font-body font-medium text-[0.875rem] text-ink leading-snug line-clamp-2 m-0 mb-1">
+            </span>
+            <p className="font-body font-medium text-[0.9375rem] text-white leading-snug m-0 mb-1">
               {data.found.adTitle}
             </p>
-            <p className="text-[0.75rem] text-ink-soft leading-normal line-clamp-2 m-0">
+            <p className="text-[0.875rem] text-mist leading-relaxed m-0">
               {data.found.adLine}
             </p>
           </div>
@@ -355,84 +307,77 @@ function FragmentContent({
 
     case 1: // Landed
       return (
-        <div className="bg-paper rounded-[14px] border border-line p-3.5 text-left min-h-[140px] flex flex-col justify-between">
-          <div>
-            <p className="font-body font-medium text-[0.875rem] text-ink leading-snug line-clamp-2 m-0 mb-1">
-              {data.landed.headline}
-            </p>
-            <p className="text-[0.75rem] text-ink-soft leading-normal line-clamp-2 m-0">
-              {data.landed.line}
-            </p>
-          </div>
-          <div className="mt-2.5">
-            <span className="inline-block bg-ink text-white text-[0.75rem] font-medium px-3 py-1.5 rounded-full select-none truncate max-w-full">
+        <div className="space-y-2 text-left">
+          <p className="font-body font-medium text-[0.9375rem] text-white leading-snug m-0">
+            {data.landed.headline}
+          </p>
+          <p className="text-[0.875rem] text-mist leading-relaxed m-0">
+            {data.landed.line}
+          </p>
+          <div className="pt-1">
+            <span className="inline-block bg-mint text-navy text-[0.875rem] font-medium px-3.5 py-1.5 rounded-full select-none">
               {data.landed.button}
             </span>
           </div>
         </div>
       );
 
-    case 2: // Enquired
+    case 2: // Enquired (Sentence Case: "New enquiry")
       return (
-        <div className="bg-paper rounded-[14px] border border-line p-3.5 text-left min-h-[140px] flex flex-col justify-between">
-          <div>
-            <span className="inline-block text-[0.6875rem] font-medium text-dot-ink uppercase tracking-wider mb-1">
-              New enquiry
-            </span>
-            <p className="font-body font-medium text-[0.875rem] text-ink leading-snug m-0 mb-1">
-              {data.enquired.name}, {data.enquired.suburb}
-            </p>
-            <p className="text-[0.75rem] text-ink-soft leading-normal italic line-clamp-3 m-0">
-              &ldquo;{data.enquired.message}&rdquo;
-            </p>
-          </div>
+        <div className="space-y-1.5 text-left">
+          <span className="inline-block text-[0.875rem] font-medium text-mint">
+            New enquiry
+          </span>
+          <p className="font-body font-medium text-[0.9375rem] text-white leading-snug m-0">
+            {data.enquired.name}, {data.enquired.suburb}
+          </p>
+          <p className="text-[0.875rem] text-mist leading-relaxed italic m-0">
+            &ldquo;{data.enquired.message}&rdquo;
+          </p>
         </div>
       );
 
-    case 3: // Followed up
+    case 3: // Followed up (Sentence Case: "Sent automatically")
       return (
-        <div className="bg-paper rounded-[14px] border border-line p-3.5 text-left min-h-[140px] flex flex-col justify-between">
-          <div className="bg-surface rounded-[10px] border border-line p-2.5 text-[0.75rem] text-ink leading-relaxed">
+        <div className="space-y-2 text-left">
+          <div className="bg-navy-raised rounded-[10px] border border-line p-3 text-[0.875rem] text-white leading-relaxed">
             {data.followedUp.text}
           </div>
-          <p className="text-[0.6875rem] text-ink-soft m-0 mt-2">
+          <p className="text-[0.875rem] text-mist m-0">
             Sent automatically
           </p>
         </div>
       );
 
-    case 4: // Booked
+    case 4: // Booked (Sentence Case: "Booked")
       return (
-        <div className="bg-paper rounded-[14px] border border-line p-3.5 text-left min-h-[140px] flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-[0.6875rem] font-medium text-ink-soft uppercase tracking-wider">
-                Confirmed
-              </span>
-              {/* Mint check SVG */}
-              <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-dot/20 text-dot-ink">
-                <svg
-                  width="11"
-                  height="11"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <polyline points="2.5 6 4.8 8.5 9.5 3.5" />
-                </svg>
-              </span>
-            </div>
-            <p className="font-body font-medium text-[0.875rem] text-ink leading-snug m-0 mb-0.5">
-              {data.booked.day}, {data.booked.time}
-            </p>
-            <p className="text-[0.75rem] text-ink-soft leading-normal m-0">
-              {data.booked.job}
-            </p>
+        <div className="space-y-1.5 text-left">
+          <div className="flex items-center justify-between">
+            <span className="text-[0.875rem] font-medium text-mist">
+              Booked
+            </span>
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-mint/20 text-mint">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="2.5 6 4.8 8.5 9.5 3.5" />
+              </svg>
+            </span>
           </div>
+          <p className="font-body font-medium text-[0.9375rem] text-white leading-snug m-0">
+            {data.booked.day}, {data.booked.time}
+          </p>
+          <p className="text-[0.875rem] text-mist leading-relaxed m-0">
+            {data.booked.job}
+          </p>
         </div>
       );
 

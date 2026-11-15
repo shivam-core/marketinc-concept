@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 
 export function MobileActionBar() {
-  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [heroButtonsPassed, setHeroButtonsPassed] = useState(false);
+  const [briefVisible, setBriefVisible] = useState(false);
 
   useEffect(() => {
     const handleMenuToggle = (e: Event) => {
@@ -20,8 +19,50 @@ export function MobileActionBar() {
     };
   }, []);
 
-  // Do not show on /brief or when mobile menu is open
-  if (pathname === "/brief" || menuOpen) {
+  // Monitor hero buttons scroll position and #brief visibility
+  useEffect(() => {
+    const heroBtnEl = document.getElementById("hero-buttons");
+    const briefEl = document.getElementById("brief");
+
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => {
+        // Appears after hero buttons leave view
+        setHeroButtonsPassed(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+      },
+      { threshold: 0 }
+    );
+
+    const briefObserver = new IntersectionObserver(
+      ([entry]) => {
+        // Hides while #brief is on screen
+        setBriefVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (heroBtnEl) heroObserver.observe(heroBtnEl);
+    if (briefEl) briefObserver.observe(briefEl);
+
+    // Fallback scroll listener
+    const handleScroll = () => {
+      if (window.scrollY > 450) {
+        setHeroButtonsPassed(true);
+      } else {
+        setHeroButtonsPassed(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      heroObserver.disconnect();
+      briefObserver.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const isVisible = heroButtonsPassed && !briefVisible && !menuOpen;
+
+  if (!isVisible) {
     return null;
   }
 
@@ -29,14 +70,13 @@ export function MobileActionBar() {
     <div
       role="region"
       aria-label="Quick actions"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-paper/95 backdrop-blur-none border-t border-line px-5 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))]"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-navy-deep border-t border-line px-5 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] shadow-[0_-8px_24px_rgba(0,0,0,0.5)] transition-all duration-300"
     >
       <div className="grid grid-cols-2 gap-3 max-w-[500px] mx-auto">
         <a
           href="tel:+61450406450"
-          className="inline-flex items-center justify-center gap-2 h-[52px] min-h-[44px] px-4 rounded-[999px] border-[1.5px] border-ink/30 text-ink bg-transparent font-body font-medium text-[0.9375rem] active:scale-[0.98] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+          className="inline-flex items-center justify-center gap-2 h-[52px] min-h-[44px] px-4 rounded-[999px] border-[1.5px] border-white/30 text-white bg-transparent font-body font-medium text-[0.9375rem] active:scale-[0.98] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
         >
-          {/* Handwritten Phone SVG icon */}
           <svg
             width="18"
             height="18"
@@ -53,12 +93,12 @@ export function MobileActionBar() {
           <span>Call</span>
         </a>
 
-        <Link
-          href="/brief"
-          className="inline-flex items-center justify-center h-[52px] min-h-[44px] px-4 rounded-[999px] bg-ink text-white font-body font-medium text-[0.9375rem] active:scale-[0.98] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+        <a
+          href="#brief"
+          className="inline-flex items-center justify-center h-[52px] min-h-[44px] px-4 rounded-[999px] bg-mint text-navy font-body font-medium text-[0.9375rem] active:scale-[0.98] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
         >
           <span>Book a strategy call</span>
-        </Link>
+        </a>
       </div>
     </div>
   );

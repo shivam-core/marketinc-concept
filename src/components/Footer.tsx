@@ -1,20 +1,27 @@
 import React from "react";
-import Link from "next/link";
 import { Wordmark } from "./Wordmark";
+import { DesignNoteCard } from "./DesignNotes";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-deep text-white pt-16 lg:pt-24 pb-20 md:pb-16 overflow-hidden">
+    <footer className="w-full bg-navy-deep text-white pt-16 lg:pt-24 pb-24 md:pb-16 overflow-hidden border-t border-line/60">
       <div className="container-site">
+        <DesignNoteCard
+          number={9}
+          title="Clear contact details and honest attribution"
+          note="A real address, real Australian phone format, and an explicit disclaimer. No hidden legal links or obscure fine print."
+          arrowDirection="down-right"
+        />
+
         {/* Very large wordmark allowed to bleed off right edge */}
-        <div className="mb-16 lg:mb-24 overflow-visible">
-          <div className="text-[clamp(4rem,18vw,16rem)] leading-[0.9] tracking-[-0.03em] whitespace-nowrap">
+        <div className="mb-16 lg:mb-20 overflow-visible select-none">
+          <div className="text-[clamp(3.5rem,16vw,14rem)] leading-[0.9] tracking-[-0.03em] whitespace-nowrap opacity-90">
             <Wordmark onDark />
           </div>
         </div>
 
         {/* Three columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 pb-16 border-b border-line-dark">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 pb-16 border-b border-line/60">
           {/* Services Column */}
           <div>
             <p className="font-display font-bold text-[1.25rem] text-white mb-6">
@@ -22,44 +29,44 @@ export function Footer() {
             </p>
             <ul className="space-y-3.5 list-none p-0 m-0">
               <li>
-                <Link
-                  href="/services/google-ads"
-                  className="font-body text-[1rem] text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                <a
+                  href="#services"
+                  className="font-body text-[1rem] text-mist hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   Google Ads
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href="/services/meta-ads"
-                  className="font-body text-[1rem] text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                <a
+                  href="#services"
+                  className="font-body text-[1rem] text-mist hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   Meta Ads
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href="/services/seo"
-                  className="font-body text-[1rem] text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                <a
+                  href="#services"
+                  className="font-body text-[1rem] text-mist hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   SEO
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href="/services/website-design"
-                  className="font-body text-[1rem] text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                <a
+                  href="#services"
+                  className="font-body text-[1rem] text-mist hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   Website design
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href="/services/crm-automation"
-                  className="font-body text-[1rem] text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                <a
+                  href="#services"
+                  className="font-body text-[1rem] text-mist hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   CRM and automation
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -71,36 +78,36 @@ export function Footer() {
             </p>
             <ul className="space-y-3.5 list-none p-0 m-0">
               <li>
-                <Link
-                  href="/industries#trades"
-                  className="font-body text-[1rem] text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                <a
+                  href="#industries"
+                  className="font-body text-[1rem] text-mist hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   Home and trade services
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href="/industries#healthcare"
-                  className="font-body text-[1rem] text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                <a
+                  href="#industries"
+                  className="font-body text-[1rem] text-mist hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   Healthcare
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href="/industries#professional"
-                  className="font-body text-[1rem] text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                <a
+                  href="#industries"
+                  className="font-body text-[1rem] text-mist hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   Professional services
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href="/industries#finance"
-                  className="font-body text-[1rem] text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                <a
+                  href="#industries"
+                  className="font-body text-[1rem] text-mist hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   Finance and investment
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -110,11 +117,11 @@ export function Footer() {
             <p className="font-display font-bold text-[1.25rem] text-white mb-6">
               Contact
             </p>
-            <div className="space-y-3.5 font-body text-[1rem] text-white/70">
+            <address className="not-italic space-y-3.5 font-body text-[1rem] text-mist">
               <p className="m-0">
                 <a
                   href="mailto:hello@marketinc.com.au"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   hello@marketinc.com.au
                 </a>
@@ -122,22 +129,22 @@ export function Footer() {
               <p className="m-0">
                 <a
                   href="tel:+61450406450"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dot"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 >
                   +61 450 406 450
                 </a>
               </p>
-              <p className="m-0 text-white/60">
+              <p className="m-0 text-mist">
                 161 Castlereagh St, Sydney NSW 2000
               </p>
-            </div>
+            </address>
           </div>
         </div>
 
-        {/* Bottom disclaimer line */}
-        <div className="pt-8 text-[0.875rem] text-white/60 leading-relaxed">
+        {/* Disclaimer Line */}
+        <div className="pt-8 text-small text-mist/80 leading-relaxed">
           <p className="m-0">
-            Unofficial redesign concept by Shivam Kore, made for MarketInc. Not affiliated with or endorsed by MarketInc. No data is collected on this site.
+            MarketInc is a registered trademark of its respective owners. This website is an independent design concept created by Shivam Kore to explore alternative product directions and is not affiliated with, endorsed by, or sponsored by MarketInc. All company and product names are for identification purposes only.
           </p>
         </div>
       </div>

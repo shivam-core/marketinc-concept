@@ -1,102 +1,112 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { industries } from "@/content/industries";
-import { DesignNoteCard } from "./DesignNotes";
+import React from "react";
+import { Spark, VanDoodle, ToothDoodle, CalculatorDoodle, KeyDoodle } from "./SketchPrimitives";
+
+interface IndustryCardData {
+  slug: string;
+  name: string;
+  text: string;
+  tilt: string;
+  icon: React.ReactNode;
+}
+
+const industryList: IndustryCardData[] = [
+  {
+    slug: "trades",
+    name: "Home and trade services",
+    text: "People search when something breaks. The business that answers first usually gets the job. We build for speed.",
+    tilt: "-rotate-1",
+    icon: <VanDoodle className="w-12 h-12" />,
+  },
+  {
+    slug: "healthcare",
+    name: "Healthcare",
+    text: "Patients choose on trust and convenience. We build clear pages, simple booking, and advertising that stays inside the rules for health services.",
+    tilt: "rotate-1",
+    icon: <ToothDoodle className="w-12 h-12" />,
+  },
+  {
+    slug: "professional",
+    name: "Professional services",
+    text: "Clients are choosing a person, not a product. We build credibility first, then make it easy to book a first conversation.",
+    tilt: "-rotate-[1.5deg]",
+    icon: <CalculatorDoodle className="w-12 h-12" />,
+  },
+  {
+    slug: "finance",
+    name: "Finance and investment",
+    text: "Longer decisions, more questions. We build education, careful follow-up, and messaging written with compliance in mind.",
+    tilt: "rotate-[1.5deg]",
+    icon: <KeyDoodle className="w-12 h-12" />,
+  },
+];
 
 export function IndustriesSection() {
-  const [openIndex, setOpenIndex] = useState<number>(0);
+  const handleSeeExample = (slug: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    // Dispatch custom event to switch the tab
+    window.dispatchEvent(
+      new CustomEvent("marketinc-select-industry", { detail: slug })
+    );
 
-  const toggle = (idx: number) => {
-    setOpenIndex((curr) => (curr === idx ? -1 : idx));
+    // Scroll to the hero demo container smoothly
+    const el = document.getElementById("hero-demo-container");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   };
 
   return (
     <section
+      id="industries"
       aria-labelledby="industries-heading"
-      className="container-site section-py"
+      className="container-site section-py scroll-mt-24"
     >
-      <DesignNoteCard
-        number={6}
-        title="Four rows, not four screens"
-        note="On a phone, each industry card currently fills most of a screen for two lines of text. An accordion gives the same content in a fraction of the scrolling."
-      />
-
-      <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
-        <div className="lg:col-span-8">
-          <h2
-            id="industries-heading"
-            className="text-display-l text-ink font-bold tracking-[-0.03em] m-0"
-          >
-            Built around how your customers book
-          </h2>
-        </div>
+      <div className="max-w-3xl mb-12 lg:mb-16">
+        <h2
+          id="industries-heading"
+          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3"
+        >
+          <span>Built around how your customers book</span>
+          <Spark color="mint" />
+        </h2>
+        <p className="font-body text-body-l text-mist leading-[1.45] m-0">
+          Different industries lose leads at different points on the line.
+        </p>
       </div>
 
-      {/* Accordion Rows */}
-      <div className="border-t border-line divide-y divide-line">
-        {industries.map((ind, idx) => {
-          const isOpen = openIndex === idx;
-          const panelId = `industry-panel-${ind.slug}`;
-          const buttonId = `industry-button-${ind.slug}`;
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 items-stretch">
+        {industryList.map((item) => (
+          <div
+            key={item.slug}
+            className={`tilt-card rounded-[20px] bg-navy-raised border border-line p-6 sm:p-7 shadow-lg flex flex-col justify-between ${item.tilt}`}
+          >
+            <div>
+              {/* Doodle at top */}
+              <div className="mb-5 flex items-center justify-start text-mint">
+                {item.icon}
+              </div>
 
-          return (
-            <div key={ind.slug} className="py-6 lg:py-8">
-              <button
-                type="button"
-                id={buttonId}
-                aria-expanded={isOpen}
-                aria-controls={panelId}
-                onClick={() => toggle(idx)}
-                className="w-full flex items-center justify-between text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-4 rounded-sm"
-              >
-                <span className="text-display-m text-ink font-bold tracking-[-0.03em] group-hover:text-ink/80 transition-colors">
-                  {ind.name}
-                </span>
-
-                {/* Hand-written plus/minus icon */}
-                <span className="w-8 h-8 rounded-full border border-line flex items-center justify-center text-ink flex-shrink-0 ml-4 group-hover:border-ink/40 transition-colors">
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <line x1="2" y1="7" x2="12" y2="7" />
-                    {!isOpen && <line x1="7" y1="2" x2="7" y2="12" />}
-                  </svg>
-                </span>
-              </button>
-
-              {/* Collapsible panel */}
-              {isOpen && (
-                <div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={buttonId}
-                  className="mt-4 pt-2 max-w-2xl transition-opacity duration-200 ease-out"
-                >
-                  <p className="font-body text-body-l text-ink-soft leading-[1.45] m-0 mb-4 prose-max">
-                    {ind.shortText}
-                  </p>
-                  <div>
-                    <Link
-                      href={`/industries#${ind.slug}`}
-                      className="font-body text-[0.9375rem] font-medium text-dot-ink underline underline-offset-4 hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
-                    >
-                      How it works for {ind.name.toLowerCase()}
-                    </Link>
-                  </div>
-                </div>
-              )}
+              <h3 className="font-display font-bold text-display-m text-white m-0 mb-3">
+                {item.name}
+              </h3>
+              <p className="font-body text-[0.9375rem] text-mist leading-relaxed m-0 mb-6">
+                {item.text}
+              </p>
             </div>
-          );
-        })}
+
+            <div className="pt-4 border-t border-line/60">
+              <a
+                href="#hero-demo-container"
+                onClick={(e) => handleSeeExample(item.slug, e)}
+                className="inline-flex items-center text-small font-medium text-mint hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm"
+              >
+                See the example
+              </a>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, DM_Sans } from "next/font/google";
+import { Bricolage_Grotesque, DM_Sans, Caveat } from "next/font/google";
 import "./globals.css";
 import { ConceptBar } from "@/components/ConceptBar";
-import { Header } from "@/components/Header";
+import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { MobileActionBar } from "@/components/MobileActionBar";
-import { DesignNotesProvider } from "@/components/DesignNotes";
+import { DesignNotesProvider, FloatingDesignNotesButton } from "@/components/DesignNotes";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -19,6 +19,13 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   display: "swap",
   weight: ["400", "500"],
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  display: "swap",
+  weight: ["600"],
 });
 
 export const metadata: Metadata = {
@@ -38,20 +45,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${dmSans.variable} h-full antialiased`}
+      className={`${bricolage.variable} ${dmSans.variable} ${caveat.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-paper text-ink font-body">
+      <body className="min-h-full flex flex-col bg-navy text-white font-body selection:bg-mint selection:text-navy relative">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        <div className="hero-glow" aria-hidden="true" />
         <DesignNotesProvider>
           <ConceptBar />
-          <Header />
+          <Navigation />
           <main id="main-content" className="flex-1">
             {children}
           </main>
           <Footer />
           <MobileActionBar />
+          <FloatingDesignNotesButton />
         </DesignNotesProvider>
       </body>
     </html>

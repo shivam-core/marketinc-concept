@@ -1,22 +1,28 @@
 @import "tailwindcss";
 
-/* ── Design tokens ── */
+/* ── Design tokens V2 (Navy, Mint, Sky, Butter) ── */
 :root {
-  --paper: #F3F6F5;
-  --surface: #FFFFFF;
-  --ink: #2D4059;
-  --ink-soft: #5C6682;
-  --deep: #161E38;
-  --dot: #5DC5A7;
-  --dot-ink: #1E6F57;
-  --leak: #E9A93C;
-  --line: rgba(42, 53, 84, 0.14);
-  --line-dark: rgba(255, 255, 255, 0.14);
+  --navy: #181F3B;
+  --navy-raised: #222B50;
+  --navy-deep: #10162C;
+  --white: #FFFFFF;
+  --mist: #B8C0DC;
+  --mint: #7CC8AE;
+  --sky: #8DB7FF;
+  --butter: #F3CF6B;
+  --line: rgba(255, 255, 255, 0.10);
+
+  /* Legacy aliases to keep existing Wordmark & components consistent */
+  --ink: #FFFFFF;
+  --ink-soft: #B8C0DC;
+  --dot: #7CC8AE;
+  --deep: #10162C;
+  --surface: #222B50;
 
   /* Type scale */
-  --text-display-xl: clamp(3.25rem, 13vw, 9rem);
-  --text-display-l: clamp(2.25rem, 6vw, 4.25rem);
-  --text-display-m: clamp(1.5rem, 3vw, 2rem);
+  --text-display-xl: clamp(3.5rem, 11vw, 8.5rem);
+  --text-display-l: clamp(2.25rem, 5.5vw, 4rem);
+  --text-display-m: clamp(1.375rem, 2.4vw, 1.75rem);
   --text-body-l: clamp(1.125rem, 1.6vw, 1.375rem);
   --text-body: clamp(1rem, 1vw, 1.0625rem);
   --text-small: 0.875rem;
@@ -24,7 +30,7 @@
   /* Layout */
   --container-max: 1320px;
   --padding-inline: 20px;
-  --section-py: 72px;
+  --section-py: 80px;
 }
 
 @media (min-width: 768px) {
@@ -36,25 +42,25 @@
 @media (min-width: 1024px) {
   :root {
     --padding-inline: 48px;
-    --section-py: 128px;
+    --section-py: 120px;
   }
 }
 
 /* ── Tailwind theme mapping ── */
 @theme inline {
-  --color-paper: var(--paper);
-  --color-surface: var(--surface);
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-deep: var(--deep);
-  --color-dot: var(--dot);
-  --color-dot-ink: var(--dot-ink);
-  --color-leak: var(--leak);
+  --color-navy: var(--navy);
+  --color-navy-raised: var(--navy-raised);
+  --color-navy-deep: var(--navy-deep);
+  --color-white: var(--white);
+  --color-mist: var(--mist);
+  --color-mint: var(--mint);
+  --color-sky: var(--sky);
+  --color-butter: var(--butter);
   --color-line: var(--line);
-  --color-line-dark: var(--line-dark);
 
   --font-display: var(--font-bricolage);
   --font-body: var(--font-dm-sans);
+  --font-handwriting: var(--font-caveat);
 }
 
 /* ── Base styles ── */
@@ -69,15 +75,47 @@ html {
   text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  background-color: var(--navy);
+  color: var(--white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
   margin: 0;
-  background-color: var(--paper);
-  color: var(--ink);
+  background-color: var(--navy);
+  color: var(--white);
   font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   font-size: var(--text-body);
   line-height: 1.55;
+  min-height: 100svh;
+  position: relative;
+  overflow-x: hidden;
+  /* Faint dot grid across whole page: 1.5px white dots at 7% opacity on a 28px grid */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+/* ── Hero subtle glow (the only gradient on the site) ── */
+.hero-glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(850px, 90vw);
+  height: min(650px, 80svh);
+  background: radial-gradient(ellipse at top right, rgba(124, 200, 174, 0.10), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Section scroll margin so headings are not hidden under nav ── */
+section {
+  scroll-margin-top: 110px;
 }
 
 /* ── Skip link ── */
@@ -87,9 +125,10 @@ body {
   top: 0;
   z-index: 9999;
   padding: 8px 16px;
-  background: var(--ink);
-  color: white;
+  background: var(--mint);
+  color: var(--navy);
   font-size: var(--text-small);
+  font-weight: 500;
   text-decoration: none;
   border-radius: 0 0 8px 0;
 }
@@ -116,11 +155,6 @@ body {
   border-top: 1px solid var(--line);
   margin: 0;
 }
-.hairline-dark {
-  border: none;
-  border-top: 1px solid var(--line-dark);
-  margin: 0;
-}
 
 /* ── Display type ── */
 .text-display-xl {
@@ -142,26 +176,13 @@ body {
   font-size: var(--text-display-m);
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.05;
+  line-height: 1.1;
 }
 
-/* ── Body type ── */
-.text-body-l {
-  font-size: var(--text-body-l);
-  line-height: 1.45;
-}
-.text-body {
-  font-size: var(--text-body);
-  line-height: 1.55;
-}
-.text-small {
-  font-size: var(--text-small);
-  line-height: 1.5;
-}
-
-/* ── Max body width (68 chars) ── */
-.prose-max {
-  max-width: 68ch;
+/* ── Handwriting font utility ── */
+.font-hand {
+  font-family: var(--font-caveat), cursive;
+  font-weight: 600;
 }
 
 /* ── Tabular nums for stop numbers ── */
@@ -169,81 +190,76 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* ── Shape tokens ── */
-.radius-pill {
-  border-radius: 999px;
+/* ── Tilted cards transition ── */
+.tilt-card {
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  transform-origin: center center;
 }
-.radius-panel {
-  border-radius: 24px;
-}
-.radius-input {
-  border-radius: 14px;
-}
-.radius-placeholder {
-  border-radius: 14px;
+.tilt-card:hover,
+.tilt-card:focus-within {
+  transform: rotate(0deg) translateY(-4px) !important;
 }
 
-/* ── Placeholder slot ── */
-.placeholder-slot {
-  border: 1.5px dashed var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  position: relative;
-}
-.placeholder-tag {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  font-size: var(--text-small);
-  color: var(--ink-soft);
-}
-
-/* ── 12-column grid ── */
-@media (min-width: 1024px) {
-  .grid-12 {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 24px;
-  }
-  .col-1-8 {
-    grid-column: 1 / 9;
-  }
-  .col-8-12 {
-    grid-column: 8 / 13;
-  }
-  .col-1-6 {
-    grid-column: 1 / 7;
-  }
-  .col-6-12 {
-    grid-column: 6 / 13;
-  }
-  .col-7-12 {
-    grid-column: 7 / 13;
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card {
+    transform: none !important;
+    transition: none !important;
   }
 }
 
-/* ── Dark section helper ── */
-.dark-section {
-  background-color: var(--deep);
-  color: #FFFFFF;
-}
-.dark-section .hairline {
-  border-top-color: var(--line-dark);
-}
-
-/* ── Focus ring on dark ── */
-.dark-section :focus-visible {
-  outline: 2px solid var(--dot);
+/* ── Focus visible rings: Mint 2px offset by 2px on dark ── */
+:focus-visible {
+  outline: 2px solid var(--mint);
   outline-offset: 2px;
 }
 
-/* ── Safe area bottom padding for mobile action bar ── */
-.pb-safe {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+/* ── Text selection ── */
+::selection {
+  background: var(--mint);
+  color: var(--navy);
 }
 
-/* ── Selection ── */
-::selection {
-  background: var(--dot);
-  color: var(--deep);
+/* ── Infinite horizontal marquee ticker ── */
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker 32s linear infinite;
+}
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ticker {
+    animation: none;
+  }
+}
+
+/* ── Badge slow spin: 1 turn every 30s ── */
+@keyframes badge-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-badge-spin {
+  animation: badge-rotate 30s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-badge-spin {
+    animation: none;
+  }
 }

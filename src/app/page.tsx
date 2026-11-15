@@ -1,31 +1,62 @@
+import React from "react";
 import { Hero } from "@/components/Hero";
-import { ClientsSection } from "@/components/ClientsSection";
+import { FactsSection } from "@/components/FactsSection";
+import { SearchTicker } from "@/components/SearchTicker";
+import { SoundFamiliarSection } from "@/components/SoundFamiliarSection";
 import { SystemSection } from "@/components/SystemSection";
+import { ServicesSection } from "@/components/ServicesSection";
 import { IndustriesSection } from "@/components/IndustriesSection";
-import { ProofSection } from "@/components/ProofSection";
-import { HowWeWorkSection } from "@/components/HowWeWorkSection";
-import { FinalCTA } from "@/components/FinalCTA";
-import { QuestionsSection } from "@/components/QuestionsSection";
+import { WaysSection } from "@/components/WaysSection";
+import { ResultsSection } from "@/components/ResultsSection";
+import { FAQSection } from "@/components/FAQSection";
+import { BriefSection } from "@/components/BriefSection";
 import { DesignNoteCard } from "@/components/DesignNotes";
 
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <ClientsSection />
-      <SystemSection />
-      <IndustriesSection />
-      <ProofSection />
-      <HowWeWorkSection />
-      <FinalCTA animate={true} />
-      <QuestionsSection />
-      <div className="container-site pb-8">
+      {/* Design Note 10 for Navigation */}
+      <div className="container-site pt-24 -mb-20">
         <DesignNoteCard
-          number={9}
-          title="The phone number is always one tap away"
-          note="Trades and clinics get most of their own leads by phone, so their agency's site should work the same way."
+          number={10}
+          title="One page, one path"
+          note="Every link scrolls down the same story, so a visitor never lands on a thin inner page with no way forward."
+          arrowDirection="right-down"
         />
       </div>
+
+      {/* 9.2 Hero & 9.3 Lead line demo */}
+      <Hero />
+
+      {/* 9.4 Three facts */}
+      <FactsSection />
+
+      {/* 9.5 Search ticker */}
+      <SearchTicker />
+
+      {/* 9.6 Sound familiar? */}
+      <SoundFamiliarSection />
+
+      {/* 9.7 How it works (#system) */}
+      <SystemSection />
+
+      {/* 9.8 Services (#services) */}
+      <ServicesSection />
+
+      {/* 9.9 Industries (#industries) */}
+      <IndustriesSection />
+
+      {/* 9.10 Working with us (#ways) */}
+      <WaysSection />
+
+      {/* 9.11 Results */}
+      <ResultsSection />
+
+      {/* 9.12 Questions (#faq) */}
+      <FAQSection />
+
+      {/* 9.13 Brief (#brief) */}
+      <BriefSection />
     </>
   );
 }

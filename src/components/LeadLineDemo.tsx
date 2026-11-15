@@ -10,97 +10,129 @@ interface LeadLineDemoProps {
 
 export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
   const [selectedTab, setSelectedTab] = useState(forcedTab || "trades");
-  const [activeStop, setActiveStop] = useState(4); // 0..4
-  const [lineProgress, setLineProgress] = useState(1);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [activeStop, setActiveStop] = useState(0); // 0..4
+  const [lineProgress, setLineProgress] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const tabListRef = useRef<HTMLDivElement>(null);
+  const targetProgressRef = useRef(0);
+  const currentProgressRef = useRef(0);
+  const rafIdRef = useRef<number | null>(null);
 
   // Sync forcedTab if parent changes it
   useEffect(() => {
     if (forcedTab && forcedTab !== selectedTab) {
-      handleSelectTab(forcedTab);
+      setSelectedTab(forcedTab);
     }
-  }, [forcedTab]);
+  }, [forcedTab, selectedTab]);
 
   // Listen for industry selection custom events
   useEffect(() => {
     const handleCustomSelect = (e: Event) => {
       const customEvent = e as CustomEvent<string>;
       if (customEvent.detail) {
-        handleSelectTab(customEvent.detail);
+        setSelectedTab(customEvent.detail);
       }
     };
     window.addEventListener("marketinc-select-industry", handleCustomSelect);
     return () => window.removeEventListener("marketinc-select-industry", handleCustomSelect);
-  }, [reducedMotion]);
+  }, []);
 
   const currentIndustry =
     industries.find((i) => i.slug === selectedTab) || industries[0];
   const demoData = currentIndustry.heroDemo;
 
-  const tabListRef = useRef<HTMLDivElement>(null);
-  const animationTimerRef = useRef<NodeJS.Timeout[]>([]);
-
+  // Check reduced motion preference
   useEffect(() => {
     if (typeof window !== "undefined") {
       const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
       setReducedMotion(mediaQuery.matches);
-      const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+      if (mediaQuery.matches) {
+        setLineProgress(1);
+        setActiveStop(4);
+      }
+      const handler = (e: MediaQueryListEvent) => {
+        setReducedMotion(e.matches);
+        if (e.matches) {
+          setLineProgress(1);
+          setActiveStop(4);
+        }
+      };
       mediaQuery.addEventListener("change", handler);
       return () => mediaQuery.removeEventListener("change", handler);
     }
   }, []);
 
-  const clearTimers = useCallback(() => {
-    animationTimerRef.current.forEach((t) => clearTimeout(t));
-    animationTimerRef.current = [];
-  }, []);
-
-  const runAnimation = useCallback((durationMs: number) => {
-    if (reducedMotion) {
-      setActiveStop(4);
-      setLineProgress(1);
-      return;
-    }
-
-    clearTimers();
-    setIsPlaying(true);
-    setActiveStop(0);
-    setLineProgress(0);
-
-    const stepInterval = durationMs / 4;
-
-    for (let i = 1; i <= 4; i++) {
-      const timer = setTimeout(() => {
-        setActiveStop(i);
-        setLineProgress(i / 4);
-        if (i === 4) {
-          setIsPlaying(false);
-        }
-      }, stepInterval * i);
-      animationTimerRef.current.push(timer);
-    }
-  }, [clearTimers, reducedMotion]);
-
-  // Initial load animation (~4.5s)
+  // Real-time scroll listener: tracks user's scroll speed and direction at their pace
   useEffect(() => {
     if (reducedMotion) return;
 
-    const initialDelay = setTimeout(() => {
-      runAnimation(4500);
-    }, 1500);
+    const updateScrollProgress = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight || 800;
+      const isDesktop = window.innerWidth >= 1024;
+
+      let progress = 0;
+
+      if (isDesktop) {
+        // On desktop: Hero is at top. Scrolling from scrollY = 0 to ~380px drives the line down
+        // through all 5 cards in tandem with user scrolling through the hero section.
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const maxScroll = 380;
+        progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+      } else {
+        // On mobile: Container enters viewport as user scrolls down.
+        // Start when container top reaches 75% of viewport height; complete when near top (15%).
+        const startY = windowHeight * 0.75;
+        const totalDist = (rect.height * 0.7) || 400;
+        const currentDist = startY - rect.top;
+        progress = Math.min(Math.max(currentDist / totalDist, 0), 1);
+      }
+
+      targetProgressRef.current = progress;
+    };
+
+    // Smooth physics lerp loop with requestAnimationFrame
+    const loop = () => {
+      const diff = targetProgressRef.current - currentProgressRef.current;
+      if (Math.abs(diff) > 0.001) {
+        currentProgressRef.current += diff * 0.22;
+        const clamped = Math.min(Math.max(currentProgressRef.current, 0), 1);
+        setLineProgress(clamped);
+
+        // Map progress to active stops (0 to 4)
+        if (clamped < 0.2) {
+          setActiveStop(0);
+        } else if (clamped < 0.45) {
+          setActiveStop(1);
+        } else if (clamped < 0.7) {
+          setActiveStop(2);
+        } else if (clamped < 0.9) {
+          setActiveStop(3);
+        } else {
+          setActiveStop(4);
+        }
+      }
+      rafIdRef.current = requestAnimationFrame(loop);
+    };
+
+    updateScrollProgress();
+    rafIdRef.current = requestAnimationFrame(loop);
+
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress, { passive: true });
 
     return () => {
-      clearTimeout(initialDelay);
-      clearTimers();
+      window.removeEventListener("scroll", updateScrollProgress);
+      window.removeEventListener("resize", updateScrollProgress);
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
     };
-  }, [reducedMotion, runAnimation, clearTimers]);
+  }, [reducedMotion]);
 
   const handleSelectTab = (slug: string) => {
     setSelectedTab(slug);
-    if (!reducedMotion) {
-      runAnimation(2500);
-    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
@@ -129,6 +161,7 @@ export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
 
   return (
     <div
+      ref={containerRef}
       className="w-full bg-navy-raised rounded-[20px] border border-line p-5 sm:p-7 transition-shadow"
       style={{
         boxShadow: "0 24px 60px -30px rgba(16, 22, 44, 0.7)",
@@ -165,7 +198,7 @@ export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
                 onKeyDown={(e) => handleKeyDown(e, idx)}
                 className={`px-3.5 py-1.5 rounded-[999px] text-[0.875rem] font-medium transition-colors duration-150 select-none whitespace-nowrap min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint ${
                   isSelected
-                    ? "bg-mint text-navy font-bold"
+                    ? "bg-mint text-navy font-bold shadow-[0_0_12px_rgba(124,200,174,0.4)]"
                     : "bg-navy-deep text-mist hover:text-white border border-line"
                 }`}
               >
@@ -183,17 +216,30 @@ export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
         aria-labelledby={`tab-${selectedTab}`}
         className="relative pl-7 space-y-6"
       >
-        {/* Vertical Track Base Line (starts at top 6px, perfectly centered on markers) */}
+        {/* Vertical Track Base Line */}
         <div
-          className="absolute top-[10px] bottom-[28px] left-[9px] w-[2px] bg-line z-0"
+          className="absolute top-[10px] bottom-[28px] left-[9px] w-[2px] bg-line/80 z-0"
           aria-hidden="true"
         />
 
-        {/* Vertical Mint Line (travelled portion) */}
+        {/* Vertical Mint Glowing Line (scroll-driven at user's pace) */}
         <div
-          className="absolute top-[10px] left-[9px] w-[2px] bg-mint z-0 transition-[height] duration-300 ease-out"
+          className="absolute top-[10px] left-[9px] w-[2px] bg-mint z-0 pointer-events-none rounded-full"
           style={{
-            height: `calc(${lineProgress * 100}% - ${lineProgress * 30}px)`,
+            height: `calc(${lineProgress * 100}% - ${lineProgress * 28}px)`,
+            boxShadow:
+              "0 0 10px 2px rgba(124, 200, 174, 0.9), 0 0 20px 4px rgba(124, 200, 174, 0.45)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Glowing Head Dot leading the line */}
+        <div
+          className="absolute left-[5px] w-2.5 h-2.5 rounded-full bg-mint z-10 pointer-events-none"
+          style={{
+            top: `calc(10px + ${lineProgress * 100}% - ${lineProgress * 28}px - 5px)`,
+            boxShadow:
+              "0 0 12px 4px rgba(124, 200, 174, 1), 0 0 24px 6px rgba(124, 200, 174, 0.6)",
           }}
           aria-hidden="true"
         />
@@ -208,25 +254,31 @@ export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
           const isPassedOrCurrent = idx <= activeStop;
           return (
             <div key={stop.num} className="relative">
-              {/* Dot marker on left vertical line (fixed to start at top of line) */}
+              {/* Dot marker on left vertical line */}
               <div
                 className="absolute -left-7 top-1 flex items-center justify-center w-5 h-5 z-10"
                 aria-hidden="true"
               >
                 <div
-                  className={`w-3.5 h-3.5 rounded-full transition-colors duration-300 ${
-                    isPassedOrCurrent ? "bg-mint ring-4 ring-mint/20" : "border-2 border-line bg-navy-deep"
+                  className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${
+                    isPassedOrCurrent
+                      ? "bg-mint ring-4 ring-mint/25 shadow-[0_0_12px_rgba(124,200,174,0.7)] scale-100"
+                      : "border-2 border-line bg-navy-deep scale-90 opacity-50"
                   }`}
                 />
               </div>
 
               {/* Stop Number and Label in Sentence Case */}
               <div
-                className={`transition-opacity duration-300 mb-2 flex items-baseline gap-2 ${
-                  isPassedOrCurrent ? "opacity-100" : "opacity-85"
+                className={`transition-all duration-300 mb-2 flex items-baseline gap-2 ${
+                  isPassedOrCurrent ? "opacity-100" : "opacity-40"
                 }`}
               >
-                <span className="tabular-nums font-bold text-mint text-[0.875rem]">
+                <span
+                  className={`tabular-nums font-bold text-[0.875rem] transition-colors duration-300 ${
+                    isPassedOrCurrent ? "text-mint" : "text-mist"
+                  }`}
+                >
                   {stop.num}
                 </span>
                 <span className="font-display font-bold text-white text-[1rem]">
@@ -234,11 +286,15 @@ export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
                 </span>
               </div>
 
-              {/* Fragment Card: Navy-deep background, min 14px text, tilted -1° or 1° */}
+              {/* Fragment Card: Navy-deep background, min 14px text */}
               <div
-                className={`tilt-card rounded-[14px] bg-navy-deep border border-line p-4 transition-opacity duration-300 ${
+                className={`tilt-card rounded-[14px] bg-navy-deep border p-4 transition-all duration-300 ${
                   stop.tilt
-                } ${isPassedOrCurrent ? "opacity-100" : "opacity-85"}`}
+                } ${
+                  isPassedOrCurrent
+                    ? "border-mint/35 opacity-100 shadow-[0_12px_32px_-16px_rgba(124,200,174,0.25)]"
+                    : "border-line/60 opacity-40 shadow-none"
+                }`}
               >
                 <VerticalFragmentContent stopIndex={idx} data={demoData} />
               </div>

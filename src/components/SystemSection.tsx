@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { RoughMark, Spark, HandArrow } from "./SketchPrimitives";
 import { DesignNoteCard } from "./DesignNotes";
-import { motion, useScroll, useReducedMotion } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useMotionValueEvent,
+  useReducedMotion,
+} from "motion/react";
 
 interface StopData {
   number: number;
@@ -63,12 +70,30 @@ const stops: StopData[] = [
 
 export function SystemSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const stopsContainerRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
+  const [activeStop, setActiveStop] = useState(1);
 
   // Scroll linked animation for the path and dot
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 65%", "end 75%"],
+    target: stopsContainerRef,
+    offset: ["start 75%", "end 80%"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 350,
+    damping: 35,
+    restDelta: 0.001,
+  });
+
+  const mobileLineHeight = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
+
+  useMotionValueEvent(smoothProgress, "change", (latest) => {
+    if (latest < 0.15) setActiveStop(1);
+    else if (latest < 0.38) setActiveStop(2);
+    else if (latest < 0.62) setActiveStop(3);
+    else if (latest < 0.85) setActiveStop(4);
+    else setActiveStop(5);
   });
 
   return (
@@ -104,7 +129,7 @@ export function SystemSection() {
       </div>
 
       {/* The 5 Stops with Winding Path */}
-      <div className="relative">
+      <div ref={stopsContainerRef} className="relative">
         {/* Desktop central SVG winding line */}
         <div
           aria-hidden="true"
@@ -123,7 +148,7 @@ export function SystemSection() {
               strokeWidth="3"
               strokeDasharray="6 6"
             />
-            {/* Active solid mint animated path */}
+            {/* Active solid mint animated path with glowing neon aura */}
             {!prefersReduced ? (
               <motion.path
                 d="M48 0 C12 100, 84 150, 48 250 C12 350, 84 400, 48 500 C12 600, 84 650, 48 750 C12 850, 84 900, 48 1000"
@@ -131,7 +156,9 @@ export function SystemSection() {
                 strokeWidth="4"
                 strokeLinecap="round"
                 style={{
-                  pathLength: scrollYProgress,
+                  pathLength: smoothProgress,
+                  filter:
+                    "drop-shadow(0 0 8px rgba(124, 200, 174, 0.9)) drop-shadow(0 0 16px rgba(124, 200, 174, 0.45))",
                 }}
               />
             ) : (
@@ -148,10 +175,23 @@ export function SystemSection() {
         {/* Mobile vertical line on the left */}
         <div
           aria-hidden="true"
-          className="md:hidden absolute left-5 top-8 bottom-8 w-1 pointer-events-none z-0"
+          className="md:hidden absolute left-5 top-8 bottom-8 w-[2px] pointer-events-none z-0"
         >
           <div className="w-full h-full border-l-2 border-dashed border-white/15" />
         </div>
+
+        {/* Mobile active scroll-driven glowing line */}
+        {!prefersReduced && (
+          <motion.div
+            aria-hidden="true"
+            className="md:hidden absolute left-5 top-8 w-[3px] bg-mint pointer-events-none z-0 rounded-full"
+            style={{
+              height: mobileLineHeight,
+              boxShadow:
+                "0 0 10px 2px rgba(124, 200, 174, 0.9), 0 0 18px 4px rgba(124, 200, 174, 0.5)",
+            }}
+          />
+        )}
 
         {/* The 5 Stops */}
         <div className="flex flex-col gap-12 md:gap-16 relative z-10">
@@ -172,7 +212,13 @@ export function SystemSection() {
                   <div className="p-6 sm:p-8 rounded-[20px] bg-navy-raised border border-line shadow-lg hover:border-mint/30 transition-colors">
                     {/* Header: Number and Stop Title */}
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-navy-deep border border-line text-mint font-bold text-[0.9375rem] tabular-nums">
+                      <span
+                        className={`inline-flex items-center justify-center w-8 h-8 rounded-full border font-bold text-[0.9375rem] tabular-nums transition-all duration-300 ${
+                          stop.number <= activeStop
+                            ? "bg-navy-deep border-mint/60 text-mint shadow-[0_0_10px_rgba(124,200,174,0.35)]"
+                            : "bg-navy-deep/60 border-line text-mist/60"
+                        }`}
+                      >
                         {stop.number}
                       </span>
                       <h3 className="font-display font-bold text-display-m text-white m-0">
@@ -231,17 +277,35 @@ export function SystemSection() {
                   aria-hidden="true"
                   className="hidden md:flex w-24 justify-center items-center flex-shrink-0 self-center"
                 >
-                  <div className="w-7 h-7 rounded-full bg-navy-deep border-2 border-mint flex items-center justify-center shadow-[0_0_12px_rgba(124,200,174,0.3)]">
-                    <span className="w-2.5 h-2.5 rounded-full bg-mint" />
+                  <div
+                    className={`w-7 h-7 rounded-full transition-all duration-300 flex items-center justify-center ${
+                      stop.number <= activeStop
+                        ? "bg-navy-deep border-2 border-mint shadow-[0_0_16px_3px_rgba(124,200,174,0.7)] scale-110"
+                        : "bg-navy-deep/60 border-2 border-white/20 opacity-40 scale-90"
+                    }`}
+                  >
+                    <span
+                      className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 ${
+                        stop.number <= activeStop ? "bg-mint" : "bg-white/20"
+                      }`}
+                    />
                   </div>
                 </div>
 
                 {/* Mobile absolute node marker */}
                 <div
                   aria-hidden="true"
-                  className="md:hidden absolute left-3 w-5 h-5 rounded-full bg-navy-deep border-2 border-mint flex items-center justify-center mt-6"
+                  className={`md:hidden absolute left-3 w-5 h-5 rounded-full transition-all duration-300 flex items-center justify-center mt-6 ${
+                    stop.number <= activeStop
+                      ? "bg-navy-deep border-2 border-mint shadow-[0_0_12px_2px_rgba(124,200,174,0.7)]"
+                      : "bg-navy-deep/60 border-2 border-white/20 opacity-40"
+                  }`}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-mint" />
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                      stop.number <= activeStop ? "bg-mint" : "bg-white/20"
+                    }`}
+                  />
                 </div>
 
                 {/* Empty opposite column for spacing on desktop */}

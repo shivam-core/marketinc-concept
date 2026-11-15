@@ -58,6 +58,13 @@ export function FounderReelsSection() {
     useRef<HTMLVideoElement | null>(null),
   ];
 
+  // Scrubber track references
+  const trackRefs = [
+    useRef<HTMLDivElement | null>(null),
+    useRef<HTMLDivElement | null>(null),
+    useRef<HTMLDivElement | null>(null),
+  ];
+
   // Intersection observer to start Reel 1 when section is in view
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState<boolean>(false);
@@ -158,6 +165,34 @@ export function FounderReelsSection() {
         next[index] = pct;
         return next;
       });
+    }
+  };
+
+  // Interactive seek/scrub function
+  const handleSeek = (clientX: number, index: number) => {
+    const track = trackRefs[index].current;
+    if (!track) return;
+    const rect = track.getBoundingClientRect();
+    const clickX = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    const pct = clickX / rect.width;
+
+    const video = videoRefs[index].current;
+    if (video && video.duration) {
+      video.currentTime = pct * video.duration;
+      setProgresses((prev) => {
+        const next = [...prev];
+        next[index] = pct * 100;
+        return next;
+      });
+      setHasInteracted(true);
+      if (activeReelIndex !== index) {
+        setActiveReelIndex(index);
+        setIsPlaying(true);
+        setIsMuted(false);
+      } else if (!isPlaying) {
+        setIsPlaying(true);
+      }
+      video.play().catch(() => {});
     }
   };
 
@@ -340,11 +375,56 @@ export function FounderReelsSection() {
                   )}
                 </div>
 
-                {/* Real-time Video Progress Track */}
-                <div className="w-full h-1 bg-white/20 rounded-full overflow-hidden mt-3">
+                {/* Interactive Seek Bar / Scrubber */}
+                <div
+                  ref={(el) => {
+                    trackRefs[index].current = el;
+                  }}
+                  role="slider"
+                  aria-label="Seek video playback"
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={Math.round(progresses[index] || 0)}
+                  tabIndex={0}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSeek(e.clientX, index);
+                  }}
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                    handleSeek(e.clientX, index);
+                    const onMouseMove = (moveEvent: MouseEvent) => {
+                      handleSeek(moveEvent.clientX, index);
+                    };
+                    const onMouseUp = () => {
+                      window.removeEventListener("mousemove", onMouseMove);
+                      window.removeEventListener("mouseup", onMouseUp);
+                    };
+                    window.addEventListener("mousemove", onMouseMove);
+                    window.addEventListener("mouseup", onMouseUp);
+                  }}
+                  onTouchStart={(e) => {
+                    e.stopPropagation();
+                    if (e.touches[0]) handleSeek(e.touches[0].clientX, index);
+                  }}
+                  onTouchMove={(e) => {
+                    e.stopPropagation();
+                    if (e.touches[0]) handleSeek(e.touches[0].clientX, index);
+                  }}
+                  className="group/seek relative w-full py-3 -my-3 cursor-pointer flex items-center mt-3 z-30"
+                >
+                  {/* Track line background */}
+                  <div className="w-full h-1 group-hover/seek:h-1.5 bg-white/20 group-hover/seek:bg-white/30 rounded-full overflow-hidden transition-all duration-150">
+                    <div
+                      className="h-full bg-mint rounded-full transition-all duration-75 ease-linear shadow-[0_0_8px_rgba(124,200,174,0.7)]"
+                      style={{ width: `${progresses[index] || 0}%` }}
+                    />
+                  </div>
+
+                  {/* Scrubber Knob visible on hover/active */}
                   <div
-                    className="h-full bg-mint transition-all duration-100 ease-linear rounded-full"
-                    style={{ width: `${progresses[index] || 0}%` }}
+                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-mint shadow-[0_0_10px_2px_rgba(124,200,174,0.9)] opacity-0 group-hover/seek:opacity-100 transition-opacity pointer-events-none"
+                    style={{ left: `${Math.min(Math.max(progresses[index] || 0, 1), 99)}%` }}
                   />
                 </div>
               </div>

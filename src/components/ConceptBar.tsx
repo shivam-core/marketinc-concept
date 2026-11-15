@@ -14,7 +14,16 @@ export function ConceptBar() {
     >
       <div className="max-w-[1320px] mx-auto flex flex-wrap items-center justify-between gap-2.5">
         <p className="m-0 text-mist text-[0.8125rem] leading-snug">
-          Unofficial redesign concept by Shivam Kore. Not affiliated with MarketInc.
+          Unofficial redesign concept by{" "}
+          <a
+            href="https://x.com/shivamcore"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-mint font-semibold underline decoration-mint/60 underline-offset-[3px] hover:text-white hover:decoration-mint transition-colors"
+          >
+            Shivam Kore
+          </a>
+          . Not affiliated with MarketInc.
         </p>
 
         <label

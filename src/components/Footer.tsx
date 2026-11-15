@@ -144,7 +144,16 @@ export function Footer() {
         {/* Disclaimer Line */}
         <div className="pt-8 text-small text-mist/80 leading-relaxed">
           <p className="m-0">
-            MarketInc is a registered trademark of its respective owners. This website is an independent design concept created by Shivam Kore to explore alternative product directions and is not affiliated with, endorsed by, or sponsored by MarketInc. All company and product names are for identification purposes only.
+            MarketInc is a registered trademark of its respective owners. This website is an independent design concept created by{" "}
+            <a
+              href="https://x.com/shivamcore"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-mint underline decoration-mint/50 underline-offset-2 hover:text-white transition-colors"
+            >
+              Shivam Kore
+            </a>{" "}
+            to explore alternative product directions and is not affiliated with, endorsed by, or sponsored by MarketInc. All company and product names are for identification purposes only.
           </p>
         </div>
       </div>

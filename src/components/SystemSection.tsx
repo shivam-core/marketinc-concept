@@ -156,9 +156,10 @@ export function SystemSection() {
                   <div>
                     {stop.missingText ? (
                       <div className="flex items-start gap-3">
+                        <span className="sr-only">Where leads go missing:</span>
                         <span
                           className="inline-block w-2.5 h-2.5 rounded-full bg-leak mt-2 flex-shrink-0"
-                          aria-label="Where leads go missing"
+                          aria-hidden="true"
                         />
                         <p className="font-body text-[1rem] text-white/70 leading-relaxed m-0">
                           {stop.missingText}
@@ -172,9 +173,10 @@ export function SystemSection() {
                   {/* What we build (mint marker) */}
                   <div>
                     <div className="flex items-start gap-3">
+                      <span className="sr-only">What we build:</span>
                       <span
                         className="inline-block w-2.5 h-2.5 rounded-full bg-dot mt-2 flex-shrink-0"
-                        aria-label="What we build"
+                        aria-hidden="true"
                       />
                       <div className="space-y-3">
                         <p className="font-body text-[1rem] text-white leading-relaxed m-0">

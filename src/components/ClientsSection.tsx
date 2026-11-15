@@ -34,7 +34,7 @@ export function ClientsSection() {
               key={idx}
               className="placeholder-slot h-20 flex items-center justify-center p-4"
             >
-              <span className="font-body text-[0.875rem] text-ink-soft/70">
+              <span className="font-body text-[0.875rem] text-ink-soft">
                 Client logo
               </span>
               <span className="placeholder-tag text-[0.6875rem]">

@@ -225,7 +225,7 @@ export function LeadLineDemo({
                     {/* Stop Number & Name */}
                     <div
                       className={`transition-opacity duration-300 ${
-                        isPassedOrCurrent ? "opacity-100" : "opacity-35"
+                        isPassedOrCurrent ? "opacity-100" : "opacity-75"
                       }`}
                     >
                       <span className="tabular-nums font-bold text-ink text-[1.0625rem]">
@@ -236,7 +236,7 @@ export function LeadLineDemo({
                     {/* Fragment Card */}
                     <div
                       className={`w-full mt-4 transition-opacity duration-300 ${
-                        isPassedOrCurrent ? "opacity-100" : "opacity-35"
+                        isPassedOrCurrent ? "opacity-100" : "opacity-75"
                       }`}
                     >
                       <FragmentContent
@@ -286,7 +286,7 @@ export function LeadLineDemo({
                   {/* Stop Number and Label */}
                   <div
                     className={`transition-opacity duration-300 mb-2.5 ${
-                      isPassedOrCurrent ? "opacity-100" : "opacity-35"
+                      isPassedOrCurrent ? "opacity-100" : "opacity-75"
                     }`}
                   >
                     <span className="tabular-nums font-bold text-ink text-[1rem]">
@@ -297,7 +297,7 @@ export function LeadLineDemo({
                   {/* Fragment Card */}
                   <div
                     className={`transition-opacity duration-300 ${
-                      isPassedOrCurrent ? "opacity-100" : "opacity-35"
+                      isPassedOrCurrent ? "opacity-100" : "opacity-75"
                     }`}
                   >
                     <FragmentContent

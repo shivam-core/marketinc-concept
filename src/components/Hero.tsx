@@ -11,17 +11,9 @@ export function Hero() {
   const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
-    // Start animation once fonts are ready and hero is loaded
     if (prefersReduced) return;
-
-    if (document.fonts?.ready) {
-      document.fonts.ready.then(() => {
-        setHasStarted(true);
-      });
-    } else {
-      const t = setTimeout(() => setHasStarted(true), 400);
-      return () => clearTimeout(t);
-    }
+    const t = setTimeout(() => setHasStarted(true), 600);
+    return () => clearTimeout(t);
   }, [prefersReduced]);
 
   return (

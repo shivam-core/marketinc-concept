@@ -53,19 +53,19 @@ export function ProofSection() {
               <dl className="space-y-3 m-0 text-[0.875rem]">
                 <div className="grid grid-cols-3 gap-2">
                   <dt className="text-ink-soft font-normal">The problem</dt>
-                  <dd className="col-span-2 text-ink-soft/70 m-0">
+                  <dd className="col-span-2 text-ink-soft m-0">
                     [One sentence, in the client&rsquo;s words]
                   </dd>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   <dt className="text-ink-soft font-normal">What we built</dt>
-                  <dd className="col-span-2 text-ink-soft/70 m-0">
+                  <dd className="col-span-2 text-ink-soft m-0">
                     [Which of the five stops were fixed]
                   </dd>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   <dt className="text-ink-soft font-normal">The result</dt>
-                  <dd className="col-span-2 text-ink-soft/70 m-0">
+                  <dd className="col-span-2 text-ink-soft m-0">
                     [One number, with the time period]
                   </dd>
                 </div>
@@ -85,7 +85,7 @@ export function ProofSection() {
             <span className="placeholder-tag text-[0.75rem]">Placeholder</span>
 
             <div>
-              <p className="font-body text-[1rem] text-ink-soft/70 italic leading-relaxed m-0 mb-4">
+              <p className="font-body text-[1rem] text-ink-soft italic leading-relaxed m-0 mb-4">
                 &ldquo;[Client quote, two or three sentences.]&rdquo;
               </p>
               <p className="font-body text-[0.875rem] text-ink-soft m-0">

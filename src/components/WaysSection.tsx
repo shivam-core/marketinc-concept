@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Spark, TapeLabel } from "./SketchPrimitives";
+import { HeadlineSpark, Spark, TapeLabel } from "./SketchPrimitives";
 
 const processSteps = [
   {
@@ -36,10 +36,17 @@ export function WaysSection() {
       <div className="max-w-3xl mb-12 lg:mb-16">
         <h2
           id="ways-heading"
-          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3"
+          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4"
         >
-          <span>Two ways to work with us</span>
-          <Spark color="sky" />
+          Two ways to{" "}
+          <span className="relative inline-block text-butter">
+            work with us
+            <HeadlineSpark
+              color="mint"
+              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+            />
+          </span>
+          .
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
           Scaling a service business requires more than running ads or redesigning a website. We partner with you to deliver consistent, measurable results.

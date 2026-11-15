@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { RoughMark, Spark, TapeLabel } from "./SketchPrimitives";
+import { RoughMark, HeadlineSpark, Spark, TapeLabel } from "./SketchPrimitives";
 
 interface ServiceItem {
   id: string;
@@ -102,14 +102,27 @@ export function ServicesSection() {
       <div className="max-w-3xl mb-12 lg:mb-16">
         <h2
           id="services-heading"
-          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3"
+          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4"
         >
-          <span>
-            <RoughMark type="circle" color="#7CC8AE" iterations={2}>
-              Our Services
-            </RoughMark>
+          <RoughMark
+            type="circle"
+            color="#7CC8AE"
+            iterations={2}
+            padding={[18, 30]}
+            strokeWidth={2.2}
+            className="px-2 py-0.5"
+          >
+            Our services
+          </RoughMark>
+          , built for{" "}
+          <span className="relative inline-block text-butter">
+            measurable growth
+            <HeadlineSpark
+              color="mint"
+              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+            />
           </span>
-          <Spark color="mint" />
+          .
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
           Focused strategies. Measurable outcomes. Scalable growth. Everything we build is designed to drive measurable growth for your business.

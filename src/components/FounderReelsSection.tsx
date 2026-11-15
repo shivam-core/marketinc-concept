@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { RoughMark } from "./SketchPrimitives";
+import { HeadlineSpark } from "./SketchPrimitives";
 
 interface ReelItem {
   id: number;
@@ -210,14 +210,17 @@ export function FounderReelsSection() {
         </div>
         <h2
           id="founder-heading"
-          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3 flex-wrap"
+          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4"
         >
-          <span>
-            The strategy behind{" "}
-            <RoughMark type="underline" color="#7CC8AE" iterations={2}>
-              MarketInc
-            </RoughMark>
+          The strategy behind{" "}
+          <span className="relative inline-block text-butter">
+            MarketInc
+            <HeadlineSpark
+              color="mint"
+              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+            />
           </span>
+          .
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
           Founder Ujjwal Maheshwari on how MarketInc builds growth systems for Australian service businesses — from the first search to a booked job in the diary.

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Spark } from "./SketchPrimitives";
+import { HeadlineSpark, Spark } from "./SketchPrimitives";
 
 interface FAQItem {
   id: string;
@@ -48,10 +48,17 @@ export function FAQSection() {
       <div className="max-w-3xl mb-12 lg:mb-16">
         <h2
           id="faq-heading"
-          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3"
+          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4"
         >
-          <span>Frequently Asked Questions</span>
-          <Spark color="sky" />
+          Frequently asked{" "}
+          <span className="relative inline-block text-butter">
+            questions
+            <HeadlineSpark
+              color="mint"
+              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+            />
+          </span>
+          .
         </h2>
       </div>
 

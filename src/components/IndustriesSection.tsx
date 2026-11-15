@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Spark, VanDoodle, ToothDoodle, CalculatorDoodle, KeyDoodle } from "./SketchPrimitives";
+import { HeadlineSpark, Spark, VanDoodle, ToothDoodle, CalculatorDoodle, KeyDoodle } from "./SketchPrimitives";
 
 interface IndustryCardData {
   slug: string;
@@ -62,10 +62,17 @@ export function IndustriesSection() {
         </span>
         <h2
           id="industries-heading"
-          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3"
+          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4"
         >
-          <span>Built for industries that need consistent leads, not just visibility.</span>
-          <Spark color="mint" />
+          Built for industries that need{" "}
+          <span className="relative inline-block text-butter">
+            consistent leads
+            <HeadlineSpark
+              color="mint"
+              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+            />
+          </span>
+          , not just visibility.
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
           No matter the size of your business or industry, we help you generate consistent, qualified enquiries.

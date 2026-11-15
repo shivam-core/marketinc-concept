@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { RoughMark, Spark, HandArrow } from "./SketchPrimitives";
+import { RoughMark, HeadlineSpark, Spark, HandArrow } from "./SketchPrimitives";
 import { DesignNoteCard } from "./DesignNotes";
 import {
   motion,
@@ -113,15 +113,27 @@ export function SystemSection() {
       <div className="max-w-3xl mb-16 lg:mb-20">
         <h2
           id="system-heading"
-          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3"
+          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4"
         >
-          <span>
-            <RoughMark type="circle" color="#8DB7FF" iterations={2}>
-              One system
-            </RoughMark>
-            , not five separate services
+          <RoughMark
+            type="circle"
+            color="#7CC8AE"
+            iterations={2}
+            padding={[18, 28]}
+            strokeWidth={2.2}
+            className="px-2 py-0.5"
+          >
+            One system
+          </RoughMark>
+          , not five{" "}
+          <span className="relative inline-block text-butter">
+            separate services
+            <HeadlineSpark
+              color="mint"
+              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+            />
           </span>
-          <Spark color="sky" />
+          .
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
           Growth doesn&apos;t come from one channel alone. We build connected systems where your website, ads, SEO, and CRM work together to attract leads, track performance, and improve conversions across the entire journey.

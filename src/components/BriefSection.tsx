@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { RoughMark, HandArrow } from "./SketchPrimitives";
+import { RoughMark, HeadlineSpark, HandArrow } from "./SketchPrimitives";
 import { SecondaryButton } from "./Buttons";
 import { DesignNoteCard } from "./DesignNotes";
 import { motion, useInView, useReducedMotion } from "motion/react";
@@ -208,12 +208,13 @@ export function BriefSection() {
               ref={headingRef}
               className="text-display-l text-white font-bold tracking-[-0.03em] leading-[1.05] m-0 mb-6"
             >
-              <span>Start with a useful </span>
-              {/* Keep full stop strictly inline with last word so it never wraps alone */}
-              <span className="whitespace-nowrap inline-block relative">
-                <RoughMark type="underline" color="#7CC8AE" iterations={2}>
-                  conversation
-                </RoughMark>
+              Start with a useful{" "}
+              <span className="whitespace-nowrap inline-block relative text-butter">
+                conversation
+                <HeadlineSpark
+                  color="mint"
+                  className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+                />
                 {/* Semantic screen reader dot */}
                 <span className="sr-only">.</span>
                 {/* Visual Mint Dot with drop-in animation */}

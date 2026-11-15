@@ -10,7 +10,7 @@ interface RoughMarkProps {
   color: string;
   iterations?: number;
   strokeWidth?: number;
-  padding?: number;
+  padding?: number | [number, number] | [number, number, number, number];
   className?: string;
 }
 
@@ -19,19 +19,25 @@ export function RoughMark({
   type,
   color,
   iterations = 1,
-  strokeWidth = 2.5,
-  padding = 4,
+  strokeWidth = 2.2,
+  padding,
   className = "",
 }: RoughMarkProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const [inView, setInView] = useState(false);
 
+  // Default padding: generous for circles so words are completely unobstructed and readable
+  const circleDefault: [number, number] = [18, 30];
+  const resolvedPadding: number | [number, number] | [number, number, number, number] =
+    padding !== undefined
+      ? padding
+      : type === "circle"
+      ? circleDefault
+      : 4;
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
-    // Check prefers-reduced-motion
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -58,7 +64,7 @@ export function RoughMark({
       color,
       iterations,
       strokeWidth,
-      padding,
+      padding: resolvedPadding,
       animationDuration: prefersReduced ? 0 : 700,
     });
 
@@ -67,7 +73,7 @@ export function RoughMark({
     return () => {
       annotation.remove();
     };
-  }, [inView, type, color, iterations, strokeWidth, padding]);
+  }, [inView, type, color, iterations, strokeWidth, resolvedPadding]);
 
   return (
     <span ref={ref} className={`relative inline-block ${className}`}>
@@ -78,12 +84,15 @@ export function RoughMark({
 
 // ── 6.2 Sparks, arrows, squiggles ──
 
-/** Spark: three short strokes fanning out at the top-right corner of H2s */
-export function Spark({
+/**
+ * HeadlineSpark: Three continuous, radiating curved strokes fanning out at the
+ * top-right corner of headline accent words (inspired by Metro Media House).
+ */
+export function HeadlineSpark({
   color = "mint",
   className = "",
 }: {
-  color?: "mint" | "sky" | "butter";
+  color?: "mint" | "sky" | "butter" | "white";
   className?: string;
 }) {
   const strokeColor =
@@ -91,37 +100,53 @@ export function Spark({
       ? "var(--mint)"
       : color === "sky"
       ? "var(--sky)"
-      : "var(--butter)";
+      : color === "butter"
+      ? "var(--butter)"
+      : "#FFFFFF";
 
   return (
     <svg
-      width="28"
-      height="28"
-      viewBox="0 0 28 28"
+      width="34"
+      height="34"
+      viewBox="0 0 34 34"
       fill="none"
       className={`inline-block select-none pointer-events-none ${className}`}
       aria-hidden="true"
     >
+      {/* Ray 1 (left): graceful upward curve */}
       <path
-        d="M6 22L11 16"
+        d="M6 24 C 7 16, 10 9, 15 3"
         stroke={strokeColor}
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinecap="round"
       />
+      {/* Ray 2 (middle): upward-right burst */}
       <path
-        d="M14 24L15 15"
+        d="M16 26 C 20 18, 25 11, 31 5"
         stroke={strokeColor}
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinecap="round"
       />
+      {/* Ray 3 (right): outward flare */}
       <path
-        d="M22 20L17 14"
+        d="M21 28 C 26 24, 30 20, 33 17"
         stroke={strokeColor}
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinecap="round"
       />
     </svg>
   );
+}
+
+/** Spark: alias to HeadlineSpark for backward compatibility */
+export function Spark({
+  color = "mint",
+  className = "",
+}: {
+  color?: "mint" | "sky" | "butter" | "white";
+  className?: string;
+}) {
+  return <HeadlineSpark color={color} className={className} />;
 }
 
 /** Loose curved hand-drawn arrow */

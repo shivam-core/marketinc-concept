@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { TapeLabel } from "./SketchPrimitives";
+import { HeadlineSpark, TapeLabel } from "./SketchPrimitives";
 import { DesignNoteCard } from "./DesignNotes";
 
 export function ResultsSection() {
@@ -19,7 +19,15 @@ export function ResultsSection() {
           id="results-heading"
           className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4"
         >
-          Results
+          Proven outcomes,{" "}
+          <span className="relative inline-block text-butter">
+            real results
+            <HeadlineSpark
+              color="mint"
+              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+            />
+          </span>
+          .
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
           This is where MarketInc&apos;s real client results belong.

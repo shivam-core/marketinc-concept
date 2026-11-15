@@ -1,5 +1,5 @@
 import React from "react";
-import { RoughMark, Spark, StickyNote } from "./SketchPrimitives";
+import { HeadlineSpark, StickyNote } from "./SketchPrimitives";
 import { DesignNoteCard } from "./DesignNotes";
 
 const painPoints = [
@@ -38,14 +38,16 @@ export function SoundFamiliarSection() {
       <div className="max-w-3xl mb-12 lg:mb-16">
         <h2
           id="sound-familiar-heading"
-          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3"
+          className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4"
         >
-          <span>
-            <RoughMark type="underline" color="#F3CF6B" iterations={2}>
-              Sound familiar?
-            </RoughMark>
+          Does this{" "}
+          <span className="relative inline-block text-butter">
+            sound familiar?
+            <HeadlineSpark
+              color="mint"
+              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+            />
           </span>
-          <Spark color="butter" />
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
           Four places service businesses lose leads.

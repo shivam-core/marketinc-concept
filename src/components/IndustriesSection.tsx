@@ -62,6 +62,9 @@ export function IndustriesSection() {
       className="container-site section-py scroll-mt-24"
     >
       <div className="max-w-3xl mb-12 lg:mb-16">
+        <span className="block text-mist text-[0.875rem] font-medium tracking-wide uppercase mb-3">
+          Industries we serve
+        </span>
         <h2
           id="industries-heading"
           className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3"

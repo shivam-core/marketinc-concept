@@ -14,7 +14,7 @@ const navItems: NavItem[] = [
   { label: "How it works", href: "#system", id: "system" },
   { label: "Services", href: "#services", id: "services" },
   { label: "Industries", href: "#industries", id: "industries" },
-  { label: "Working with us", href: "#ways", id: "ways" },
+  { label: "Work with us", href: "#ways", id: "ways" },
   { label: "Questions", href: "#faq", id: "faq" },
 ];
 
@@ -91,17 +91,17 @@ export function Navigation() {
       {/* Outer wrapper: fixed top-0, handles morph positioning */}
       <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none flex justify-center pt-2 md:pt-4 px-3 sm:px-4">
         <header
-          className={`pointer-events-auto transition-all duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`pointer-events-auto transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             isScrolled
-              ? "w-full max-w-[880px] rounded-[999px] bg-[#181F3B]/70 backdrop-blur-[18px] backdrop-saturate-[150%] [-webkit-backdrop-filter:blur(18px)_saturate(150%)] border border-white/14 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.5)] px-4 sm:px-6 py-2.5 [box-shadow:inset_0_1px_0_rgba(255,255,255,0.12),0_12px_40px_-12px_rgba(0,0,0,0.5)]"
+              ? "w-auto max-w-[96vw] rounded-[999px] bg-[#181F3B]/80 backdrop-blur-[20px] backdrop-saturate-[160%] [-webkit-backdrop-filter:blur(20px)_saturate(160%)] border border-white/14 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.6)] px-5 sm:px-6 py-2 [box-shadow:inset_0_1px_0_rgba(255,255,255,0.12),0_12px_40px_-12px_rgba(0,0,0,0.6)]"
               : "w-full max-w-[1320px] rounded-none bg-transparent border-transparent px-4 sm:px-8 py-3"
           }`}
         >
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-5 sm:gap-8">
             {/* Wordmark (white lowercase with mint dot) */}
             <a
               href="#"
-              className="text-[1.5rem] sm:text-[1.75rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm select-none"
+              className="text-[1.5rem] sm:text-[1.625rem] flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm select-none"
             >
               <Wordmark onDark />
             </a>
@@ -109,7 +109,7 @@ export function Navigation() {
             {/* Desktop Navigation Links with animated sliding mint dot indicator */}
             <nav
               aria-label="Main navigation"
-              className="hidden lg:flex items-center gap-7 relative"
+              className="hidden lg:flex items-center gap-6 xl:gap-8 flex-shrink-0"
             >
               {navItems.map((item) => {
                 const isActive = activeSection === item.id;
@@ -117,7 +117,7 @@ export function Navigation() {
                   <a
                     key={item.id}
                     href={item.href}
-                    className={`relative font-body text-[0.9375rem] py-1 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm ${
+                    className={`relative font-body text-[0.9375rem] py-1 whitespace-nowrap transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm ${
                       isActive ? "text-white font-medium" : "text-mist hover:text-white"
                     }`}
                   >
@@ -135,20 +135,20 @@ export function Navigation() {
             </nav>
 
             {/* Right side: Phone number & Book button */}
-            <div className="hidden lg:flex items-center gap-5">
+            <div className="hidden lg:flex items-center gap-4 xl:gap-5 flex-shrink-0">
               {!isScrolled && (
                 <a
                   href="tel:+61450406450"
-                  className="font-body text-[0.9375rem] text-mist hover:text-white transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm"
+                  className="font-body text-[0.9375rem] text-mist hover:text-white whitespace-nowrap transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm"
                 >
                   0450 406 450
                 </a>
               )}
               <a
                 href="#brief"
-                className={`inline-flex items-center justify-center rounded-[999px] bg-mint text-navy font-body font-medium transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint ${
+                className={`inline-flex items-center justify-center whitespace-nowrap rounded-[999px] bg-mint text-navy font-body font-medium transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint leading-none ${
                   isScrolled
-                    ? "h-[40px] px-5 text-[0.875rem]"
+                    ? "h-[42px] px-5 text-[0.9375rem]"
                     : "h-[48px] px-6 text-[0.9375rem]"
                 }`}
               >
@@ -157,12 +157,12 @@ export function Navigation() {
             </div>
 
             {/* Mobile Header: Menu button */}
-            <div className="flex lg:hidden items-center gap-2">
+            <div className="flex lg:hidden items-center gap-2 flex-shrink-0">
               <button
                 ref={menuButtonRef}
                 type="button"
                 onClick={() => setMenuOpen(true)}
-                className="font-body font-medium text-[0.9375rem] text-white min-h-[44px] px-3 py-1.5 rounded-full border border-white/20 hover:border-mint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+                className="font-body font-medium text-[0.9375rem] text-white min-h-[44px] px-3.5 py-1.5 rounded-full border border-white/20 hover:border-mint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
                 aria-expanded={menuOpen}
                 aria-controls="mobile-navigation-sheet"
                 aria-label="Open navigation menu"
@@ -181,15 +181,15 @@ export function Navigation() {
           id="mobile-navigation-sheet"
           role="dialog"
           aria-modal="true"
-          aria-label="Site menu"
-          className="fixed inset-0 z-50 bg-navy text-white flex flex-col p-6 sm:p-8"
+          aria-label="Mobile Navigation"
+          className="fixed inset-0 z-50 bg-navy p-6 flex flex-col justify-between overflow-y-auto"
         >
           {/* Header row in sheet */}
-          <div className="flex items-center justify-between h-14">
+          <div className="flex items-center justify-between pb-6 border-b border-line">
             <a
               href="#"
               onClick={closeMenu}
-              className="text-[1.75rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm"
+              className="text-[1.5rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm"
             >
               <Wordmark onDark />
             </a>

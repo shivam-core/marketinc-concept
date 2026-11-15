@@ -37,40 +37,43 @@ export function Hero({ forcedDemoTab }: HeroProps) {
         {/* Left Column (7 of 12) */}
         <div className="lg:col-span-7 flex flex-col justify-between">
           <div>
-            <h1 className="text-display-xl text-white font-bold tracking-[-0.03em] leading-[0.95] m-0 mb-6 relative">
-              <span className="block">More booked</span>
-              <span className="relative inline-block">
-                {/* Underline mark under 'jobs' (or 'booked jobs') */}
-                <RoughMark type="underline" color="#7CC8AE" iterations={2}>
-                  jobs
-                </RoughMark>
-                {/* Screen reader semantic dot */}
-                <span className="sr-only">.</span>
-                {/* Static visual mint full stop */}
-                <span
-                  aria-hidden="true"
-                  className="inline-block w-[0.22em] h-[0.22em] rounded-full bg-mint ml-[0.05em] align-baseline translate-y-[-0.05em]"
-                />
-
-                {/* Animated detaching mint dot for the orchestrated moment on load */}
-                {hasStarted && !prefersReduced && (
-                  <motion.span
+            <h1 className="text-[clamp(2.125rem,4.2vw,3.85rem)] text-white font-bold tracking-[-0.03em] leading-[1.08] m-0 mb-6 relative">
+              <span className="block">Predictable Leads.</span>
+              <span className="block">
+                <span>Real Growth. Built to </span>
+                <span className="relative inline-block whitespace-nowrap">
+                  {/* Underline mark under 'Scale' */}
+                  <RoughMark type="underline" color="#7CC8AE" iterations={2}>
+                    Scale
+                  </RoughMark>
+                  {/* Screen reader semantic dot */}
+                  <span className="sr-only">.</span>
+                  {/* Static visual mint full stop */}
+                  <span
                     aria-hidden="true"
-                    className="absolute right-0 top-0 w-[0.22em] h-[0.22em] rounded-full bg-mint pointer-events-none"
-                    initial={{ x: "0%", y: "0%", opacity: 1, scale: 1 }}
-                    animate={{
-                      x: ["0%", "50%", "120%"],
-                      y: ["0%", "-30%", "150%"],
-                      opacity: [1, 1, 0],
-                      scale: [1, 1.2, 0.8],
-                    }}
-                    transition={{
-                      duration: 0.8,
-                      ease: "easeIn",
-                      times: [0, 0.4, 1],
-                    }}
+                    className="inline-block w-[0.22em] h-[0.22em] rounded-full bg-mint ml-[0.05em] align-baseline translate-y-[-0.05em]"
                   />
-                )}
+
+                  {/* Animated detaching mint dot for the orchestrated moment on load */}
+                  {hasStarted && !prefersReduced && (
+                    <motion.span
+                      aria-hidden="true"
+                      className="absolute right-0 top-0 w-[0.22em] h-[0.22em] rounded-full bg-mint pointer-events-none"
+                      initial={{ x: "0%", y: "0%", opacity: 1, scale: 1 }}
+                      animate={{
+                        x: ["0%", "50%", "120%"],
+                        y: ["0%", "-30%", "150%"],
+                        opacity: [1, 1, 0],
+                        scale: [1, 1.2, 0.8],
+                      }}
+                      transition={{
+                        duration: 0.8,
+                        ease: "easeIn",
+                        times: [0, 0.4, 1],
+                      }}
+                    />
+                  )}
+                </span>
               </span>
             </h1>
 

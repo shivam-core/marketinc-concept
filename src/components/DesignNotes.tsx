@@ -102,9 +102,9 @@ export function DesignNoteCard({
           <span className="tabular-nums inline-flex h-6 w-6 items-center justify-center rounded-full bg-navy text-[0.875rem] font-bold text-sky flex-shrink-0 mt-0.5">
             {number}
           </span>
-          <h4 className="font-hand text-[26px] font-semibold text-navy leading-[1.1] m-0">
+          <p className="font-hand text-[26px] font-semibold text-navy leading-[1.1] m-0">
             {title}
-          </h4>
+          </p>
         </div>
         <p className="font-body text-[15px] text-navy/90 leading-relaxed m-0 pl-8">
           {note}

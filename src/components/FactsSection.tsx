@@ -4,7 +4,10 @@ import { DesignNoteCard } from "./DesignNotes";
 
 export function FactsSection() {
   return (
-    <section aria-label="Core pillars of MarketInc" className="container-site py-12 lg:py-16 border-t border-line">
+    <section aria-labelledby="facts-heading" className="container-site py-12 lg:py-16 border-t border-line">
+      <h2 id="facts-heading" className="sr-only">
+        Core Pillars of MarketInc
+      </h2>
       <DesignNoteCard
         number={4}
         title="Honest facts instead of invented numbers"

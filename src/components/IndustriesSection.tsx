@@ -7,7 +7,6 @@ interface IndustryCardData {
   slug: string;
   name: string;
   text: string;
-  tilt: string;
   icon: React.ReactNode;
 }
 
@@ -16,28 +15,24 @@ const industryList: IndustryCardData[] = [
     slug: "trades",
     name: "Home & Trade Services",
     text: "We help service-based businesses strengthen their local presence, attract high-intent customers, and convert enquiries consistently.",
-    tilt: "-rotate-1",
     icon: <VanDoodle className="w-12 h-12" />,
   },
   {
     slug: "healthcare",
     name: "Healthcare",
     text: "Strategic digital marketing solutions focused on trust, compliance, and attracting the right audience.",
-    tilt: "rotate-1",
     icon: <ToothDoodle className="w-12 h-12" />,
   },
   {
     slug: "professional",
     name: "Professional Services",
     text: "Authority-driven marketing designed to build credibility and generate high-quality enquiries.",
-    tilt: "-rotate-[1.5deg]",
     icon: <CalculatorDoodle className="w-12 h-12" />,
   },
   {
     slug: "finance",
     name: "Finance & Investment",
     text: "Compliance-aware digital strategies that support education, trust-building, and long-term growth.",
-    tilt: "rotate-[1.5deg]",
     icon: <KeyDoodle className="w-12 h-12" />,
   },
 ];
@@ -81,7 +76,7 @@ export function IndustriesSection() {
         {industryList.map((item) => (
           <div
             key={item.slug}
-            className={`tilt-card rounded-[20px] bg-navy-raised border border-line p-6 sm:p-7 shadow-lg flex flex-col justify-between ${item.tilt}`}
+            className="rounded-[20px] bg-navy-raised border border-line p-6 sm:p-7 shadow-lg flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:border-mint/40 hover:shadow-xl"
           >
             <div>
               {/* Doodle at top */}

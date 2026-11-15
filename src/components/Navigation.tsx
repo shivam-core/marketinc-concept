@@ -116,14 +116,18 @@ export function Navigation() {
         }`}
       >
         <header
-          className={`pointer-events-auto w-full transition-[max-width,padding,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-[999px] ${
+          className={`pointer-events-auto transition-[max-width,padding,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-[999px] ${
             isScrolled
-              ? "max-w-[94vw] lg:max-w-[860px] xl:max-w-[880px] bg-[#181F3B]/85 backdrop-blur-[20px] backdrop-saturate-[160%] border border-white/14 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.6)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.12),0_12px_40px_-12px_rgba(0,0,0,0.6)] px-5 sm:px-6 py-2"
-              : "max-w-[1320px] bg-transparent border border-transparent shadow-none px-4 sm:px-8 py-3"
+              ? "w-fit max-w-[calc(100vw-24px)] bg-[#181F3B]/85 backdrop-blur-[20px] backdrop-saturate-[160%] border border-white/14 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.6)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.12),0_12px_40px_-12px_rgba(0,0,0,0.6)] px-5 sm:px-6 py-2"
+              : "w-full max-w-[1320px] bg-transparent border border-transparent shadow-none px-4 sm:px-8 py-3"
           }`}
           style={{ willChange: "max-width, transform" }}
         >
-          <div className="flex items-center justify-between gap-5 sm:gap-8">
+          <div
+            className={`flex items-center justify-between transition-all duration-500 ${
+              isScrolled ? "gap-4 xl:gap-6" : "gap-5 sm:gap-8"
+            }`}
+          >
             {/* Wordmark (white lowercase with mint dot) */}
             <a
               href="#"
@@ -135,7 +139,9 @@ export function Navigation() {
             {/* Desktop Navigation Links with animated sliding mint dot indicator */}
             <nav
               aria-label="Main navigation"
-              className="hidden lg:flex items-center gap-6 xl:gap-8 flex-shrink-0"
+              className={`hidden lg:flex items-center flex-shrink-0 transition-all duration-500 ${
+                isScrolled ? "gap-4 xl:gap-6" : "gap-6 xl:gap-8"
+              }`}
             >
               {navItems.map((item) => {
                 const isActive = activeSection === item.id;
@@ -180,7 +186,7 @@ export function Navigation() {
 
               <a
                 href="#brief"
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-[999px] bg-mint text-navy font-body font-medium transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint leading-none h-[44px] px-5 sm:px-6 text-[0.9375rem]"
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-[999px] bg-mint text-navy font-body font-medium transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint leading-none h-[42px] px-5 text-[0.9375rem]"
               >
                 Book a strategy call
               </a>

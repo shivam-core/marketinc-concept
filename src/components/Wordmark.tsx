@@ -25,14 +25,14 @@ export function Wordmark({
         <span className="relative inline-block">
           <span>ı</span>
           <span
-            className="absolute left-1/2 -translate-x-1/2 top-[0.12em] w-[0.22em] h-[0.22em] rounded-full bg-dot"
+            className="absolute left-1/2 -translate-x-1/2 top-[0.12em] w-[0.22em] h-[0.22em] rounded-full bg-mint"
             aria-hidden="true"
           />
         </span>
         <span>nc</span>
         {/* Mint full stop following the 'c' */}
         <span
-          className="inline-block w-[0.22em] h-[0.22em] rounded-full bg-dot ml-[0.05em] translate-y-[-0.05em]"
+          className="inline-block w-[0.22em] h-[0.22em] rounded-full bg-mint ml-[0.05em] translate-y-[-0.05em]"
           aria-hidden="true"
         />
       </span>

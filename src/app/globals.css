@@ -57,10 +57,15 @@
   --color-sky: var(--sky);
   --color-butter: var(--butter);
   --color-line: var(--line);
+  --color-dot: var(--mint);
 
   --font-display: var(--font-bricolage);
   --font-body: var(--font-dm-sans);
   --font-handwriting: var(--font-caveat);
+}
+
+.bg-dot {
+  background-color: var(--mint) !important;
 }
 
 /* ── Base styles ── */

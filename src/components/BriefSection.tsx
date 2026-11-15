@@ -301,7 +301,10 @@ export function BriefSection() {
 
                 {/* STEP 1: Business Type */}
                 {step === 1 && (
-                  <fieldset className="border-0 p-0 m-0">
+                  <fieldset
+                    className="border-0 p-0 m-0"
+                    aria-describedby={errors.businessType ? "businessType-error" : undefined}
+                  >
                     <legend className="sr-only">Step 1: Your business type</legend>
                     <h3
                       ref={stepHeadingRef}
@@ -338,6 +341,7 @@ export function BriefSection() {
 
                     {errors.businessType && (
                       <p
+                        id="businessType-error"
                         role="alert"
                         className="text-butter text-[0.875rem] font-medium mb-4"
                       >
@@ -349,7 +353,10 @@ export function BriefSection() {
 
                 {/* STEP 2: Leaks */}
                 {step === 2 && (
-                  <fieldset className="border-0 p-0 m-0">
+                  <fieldset
+                    className="border-0 p-0 m-0"
+                    aria-describedby={errors.leaks ? "leaks-error" : undefined}
+                  >
                     <legend className="sr-only">Step 2: Where leads go missing</legend>
                     <h3
                       ref={stepHeadingRef}
@@ -388,6 +395,7 @@ export function BriefSection() {
 
                     {errors.leaks && (
                       <p
+                        id="leaks-error"
                         role="alert"
                         className="text-butter text-[0.875rem] font-medium mb-4"
                       >
@@ -471,6 +479,8 @@ export function BriefSection() {
                           autoComplete="tel"
                           required
                           aria-required="true"
+                          aria-invalid={!!errors.phone}
+                          aria-describedby={errors.phone ? "phone-error" : undefined}
                           value={formData.phone}
                           onChange={(e) =>
                             setFormData((p) => ({ ...p, phone: e.target.value }))
@@ -480,6 +490,7 @@ export function BriefSection() {
                         />
                         {errors.phone && (
                           <p
+                            id="phone-error"
                             role="alert"
                             className="text-butter text-[0.875rem] font-medium mt-1"
                           >
@@ -502,6 +513,8 @@ export function BriefSection() {
                           autoComplete="email"
                           required
                           aria-required="true"
+                          aria-invalid={!!errors.email}
+                          aria-describedby={errors.email ? "email-error" : undefined}
                           value={formData.email}
                           onChange={(e) =>
                             setFormData((p) => ({ ...p, email: e.target.value }))
@@ -511,6 +524,7 @@ export function BriefSection() {
                         />
                         {errors.email && (
                           <p
+                            id="email-error"
                             role="alert"
                             className="text-butter text-[0.875rem] font-medium mt-1"
                           >

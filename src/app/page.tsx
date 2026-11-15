@@ -16,12 +16,13 @@ export default function HomePage() {
   return (
     <>
       {/* Design Note 10 for Navigation */}
-      <div className="container-site pt-24 -mb-20">
+      <div className="container-site">
         <DesignNoteCard
           number={10}
           title="One page, one path"
           note="Every link scrolls down the same story, so a visitor never lands on a thin inner page with no way forward."
           arrowDirection="right-down"
+          className="pt-24 -mb-20"
         />
       </div>
 

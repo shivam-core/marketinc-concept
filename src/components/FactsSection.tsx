@@ -7,8 +7,8 @@ export function FactsSection() {
     <section aria-label="Core pillars of MarketInc" className="container-site py-12 lg:py-16 border-t border-line">
       <DesignNoteCard
         number={4}
-        title="Service-focused growth"
-        note="MarketInc works exclusively with service businesses, building integrated systems across search, social, web, and CRM."
+        title="Honest facts instead of invented numbers"
+        note="The page shows three true things about MarketInc. Real results go in one clearly marked section until the team supplies them."
         arrowDirection="down-right"
       />
 

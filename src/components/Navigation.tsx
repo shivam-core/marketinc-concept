@@ -25,6 +25,7 @@ export function Navigation() {
   const { enabled: designNotesEnabled, toggle: toggleDesignNotes } = useDesignNotes();
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
 
   // Scroll listener for 80px morph
@@ -68,6 +69,11 @@ export function Navigation() {
 
     window.dispatchEvent(new CustomEvent("marketinc-menu-toggle", { detail: { open: true } }));
     document.body.style.overflow = "hidden";
+
+    // Move focus to close button upon opening
+    requestAnimationFrame(() => {
+      closeButtonRef.current?.focus();
+    });
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -194,12 +200,27 @@ export function Navigation() {
               <Wordmark onDark />
             </a>
             <button
+              ref={closeButtonRef}
               type="button"
               onClick={closeMenu}
-              className="font-body font-medium text-[1.0625rem] text-white min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm"
+              className="font-body font-medium text-[1rem] text-white min-h-[44px] px-3.5 py-1.5 rounded-full border border-white/20 hover:border-mint flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
               aria-label="Close menu"
             >
-              Close
+              <span>Close</span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
             </button>
           </div>
 

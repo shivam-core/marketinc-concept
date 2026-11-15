@@ -69,7 +69,7 @@ export function IndustriesSection() {
             consistent leads
             <HeadlineSpark
               color="mint"
-              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+              className="absolute -top-2.5 sm:-top-3.5 -right-5 sm:-right-8"
             />
           </span>
           , not just visibility.

@@ -12,9 +12,9 @@ export function ConceptBar() {
       aria-label="Concept disclaimer and design controls"
       className="w-full bg-navy-deep text-white text-[0.8125rem] py-1.5 px-4 sm:px-8 lg:px-12 border-b border-line/60 relative z-50 transition-colors"
     >
-      <div className="max-w-[1320px] mx-auto flex flex-wrap items-center justify-between gap-2.5">
-        <p className="m-0 text-mist text-[0.8125rem] leading-snug">
-          Unofficial redesign concept by{" "}
+      <div className="max-w-[1320px] mx-auto flex items-center justify-between gap-2">
+        <p className="m-0 text-mist text-[0.75rem] sm:text-[0.8125rem] leading-snug">
+          Unofficial concept by{" "}
           <a
             href="https://x.com/shivamcore"
             target="_blank"
@@ -23,12 +23,12 @@ export function ConceptBar() {
           >
             Shivam Kore
           </a>
-          . Not affiliated with MarketInc.
+          <span className="hidden sm:inline">. Not affiliated with MarketInc</span>.
         </p>
 
         <label
           htmlFor="design-notes-switch"
-          className="inline-flex items-center gap-2 cursor-pointer select-none text-[0.8125rem] text-mist hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 cursor-pointer select-none text-[0.75rem] sm:text-[0.8125rem] text-mist hover:text-white transition-colors flex-shrink-0"
         >
           <span>Design notes</span>
           <div className="relative inline-flex items-center">

@@ -37,7 +37,7 @@ export function Hero({ forcedDemoTab }: HeroProps) {
         {/* Left Column (7 of 12) */}
         <div className="lg:col-span-7 flex flex-col justify-between">
           <div>
-            <h1 className="text-[clamp(2.25rem,4.5vw,4.25rem)] text-white font-bold tracking-[-0.03em] leading-[1.05] m-0 mb-6 relative">
+            <h1 className="text-[clamp(1.85rem,5.5vw,4.25rem)] text-white font-bold tracking-[-0.03em] leading-[1.08] m-0 mb-6 relative">
               <span className="block">Predictable Leads.</span>
               <span className="block">
                 <span>Real Growth. Built to </span>
@@ -91,38 +91,40 @@ export function Hero({ forcedDemoTab }: HeroProps) {
           />
 
           {/* Action buttons (id="hero-buttons" for MobileActionBar visibility trigger) */}
-          <div id="hero-buttons" className="flex flex-wrap items-center gap-4 pt-2">
-            <PrimaryButton href="#brief">Book a strategy call</PrimaryButton>
-            <SecondaryButton href="tel:+61450406450">
+          <div id="hero-buttons" className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
+            <PrimaryButton href="#brief" className="w-full sm:w-auto text-center justify-center">
+              Book a strategy call
+            </PrimaryButton>
+            <SecondaryButton href="tel:+61450406450" className="w-full sm:w-auto text-center justify-center">
               Call 0450 406 450
             </SecondaryButton>
           </div>
 
           {/* Trust Highlights & Core Commitments (balances the 5-card vertical demo) */}
-          <div className="mt-10 sm:mt-12 pt-8 border-t border-line/60 max-w-xl">
+          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-line/60 max-w-xl">
             {/* Quick stats ribbon */}
-            <div className="grid grid-cols-3 gap-4 pb-6 border-b border-line/40">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 pb-6 border-b border-line/40">
               <div>
-                <p className="text-[1.5rem] sm:text-[1.75rem] font-bold text-white tabular-nums m-0">
+                <p className="text-[1.375rem] sm:text-[1.75rem] font-bold text-white tabular-nums m-0">
                   150+
                 </p>
-                <p className="text-[0.8125rem] text-mist m-0 leading-tight">
+                <p className="text-[0.75rem] sm:text-[0.8125rem] text-mist m-0 leading-tight">
                   Service businesses
                 </p>
               </div>
               <div>
-                <p className="text-[1.5rem] sm:text-[1.75rem] font-bold text-mint tabular-nums m-0">
+                <p className="text-[1.375rem] sm:text-[1.75rem] font-bold text-mint tabular-nums m-0">
                   6+ Yrs
                 </p>
-                <p className="text-[0.8125rem] text-mist m-0 leading-tight">
+                <p className="text-[0.75rem] sm:text-[0.8125rem] text-mist m-0 leading-tight">
                   Tested systems
                 </p>
               </div>
               <div>
-                <p className="text-[1.5rem] sm:text-[1.75rem] font-bold text-white tabular-nums m-0">
+                <p className="text-[1.375rem] sm:text-[1.75rem] font-bold text-white tabular-nums m-0">
                   100%
                 </p>
-                <p className="text-[0.8125rem] text-mist m-0 leading-tight">
+                <p className="text-[0.75rem] sm:text-[0.8125rem] text-mist m-0 leading-tight">
                   Attribution clarity
                 </p>
               </div>

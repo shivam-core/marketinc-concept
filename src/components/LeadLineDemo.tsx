@@ -162,7 +162,7 @@ export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
   return (
     <div
       ref={containerRef}
-      className="w-full bg-navy-raised rounded-[20px] border border-line p-5 sm:p-7 transition-shadow"
+      className="w-full bg-navy-raised rounded-[20px] border border-line p-4 sm:p-7 transition-shadow"
       style={{
         boxShadow: "0 24px 60px -30px rgba(16, 22, 44, 0.7)",
       }}

@@ -217,7 +217,7 @@ export function FounderReelsSection() {
             MarketInc
             <HeadlineSpark
               color="mint"
-              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+              className="absolute -top-2.5 sm:-top-3.5 -right-5 sm:-right-8"
             />
           </span>
           .
@@ -237,7 +237,7 @@ export function FounderReelsSection() {
             <div
               key={reel.id}
               onClick={() => handleReelClick(index)}
-              className={`group relative rounded-[24px] overflow-hidden bg-navy-raised border transition-all duration-300 cursor-pointer shadow-xl select-none flex flex-col ${
+              className={`group relative rounded-[24px] overflow-hidden bg-navy-raised border transition-all duration-300 cursor-pointer shadow-xl select-none flex flex-col w-full max-w-[340px] sm:max-w-none mx-auto ${
                 isActive
                   ? "border-mint ring-2 ring-mint/20 shadow-[0_20px_50px_-20px_rgba(124,200,174,0.3)] scale-[1.01]"
                   : "border-line hover:border-mint/40 opacity-85 hover:opacity-100"
@@ -332,8 +332,8 @@ export function FounderReelsSection() {
                 </p>
 
                 {/* Subtitle and Controls */}
-                <div className="flex items-center justify-between text-[0.75rem] text-mist">
-                  <span className="font-medium text-white/90">
+                <div className="flex items-center justify-between text-[0.75rem] text-mist gap-2">
+                  <span className="font-medium text-white/90 truncate mr-1">
                     {reel.title}
                   </span>
 

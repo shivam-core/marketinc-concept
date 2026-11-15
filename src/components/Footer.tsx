@@ -13,8 +13,8 @@ export function Footer() {
           arrowDirection="down-right"
         />
 
-        {/* Very large wordmark allowed to bleed off right edge */}
-        <div className="mb-16 lg:mb-20 overflow-visible select-none">
+        {/* Very large wordmark, safely clipped on mobile so it never causes page horizontal scroll */}
+        <div className="mb-12 lg:mb-20 overflow-hidden select-none">
           <div className="text-[clamp(3.5rem,16vw,14rem)] leading-[0.9] tracking-[-0.03em] whitespace-nowrap opacity-90">
             <Wordmark onDark />
           </div>
@@ -169,8 +169,8 @@ export function Footer() {
 
         {/* Bottom Social & Disclaimer Row */}
         <div className="pt-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-line/30 pb-8">
-          <div className="flex items-center gap-3">
-            <span className="text-[0.875rem] text-mist/70 font-medium">Connect with MarketInc:</span>
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+            <span className="text-[0.875rem] text-mist/70 font-medium w-full sm:w-auto">Connect with MarketInc:</span>
             <a
               href="https://www.instagram.com/marketincau/"
               target="_blank"

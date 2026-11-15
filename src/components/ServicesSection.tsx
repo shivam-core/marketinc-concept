@@ -119,7 +119,7 @@ export function ServicesSection() {
             measurable growth
             <HeadlineSpark
               color="mint"
-              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+              className="absolute -top-2.5 sm:-top-3.5 -right-5 sm:-right-8"
             />
           </span>
           .
@@ -129,8 +129,21 @@ export function ServicesSection() {
         </p>
       </div>
 
-      {/* Services Grid (3 then 2 on desktop, horizontal scrolling row with peek on mobile) */}
-      <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible pb-4 md:pb-0 -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0 snap-x snap-mandatory">
+      {/* On Mobile: Clean vertical stack of all 5 services */}
+      <div className="flex flex-col md:hidden gap-5">
+        {services.map((svc) => (
+          <ServiceCard
+            key={svc.id}
+            service={svc}
+            isExpanded={expandedId === svc.id}
+            onToggle={() => toggleExpand(svc.id)}
+            isMobile
+          />
+        ))}
+      </div>
+
+      {/* On Desktop: 3 + 2 grid */}
+      <div className="hidden md:grid md:grid-cols-3 gap-6">
         {services.slice(0, 3).map((svc) => (
           <ServiceCard
             key={svc.id}
@@ -141,7 +154,7 @@ export function ServicesSection() {
         ))}
       </div>
 
-      <div className="flex md:grid md:grid-cols-2 md:max-w-4xl md:mx-auto gap-6 mt-6 overflow-x-auto md:overflow-visible pb-4 md:pb-0 -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0 snap-x snap-mandatory">
+      <div className="hidden md:grid md:grid-cols-2 md:max-w-4xl md:mx-auto gap-6 mt-6">
         {services.slice(3, 5).map((svc) => (
           <ServiceCard
             key={svc.id}
@@ -159,14 +172,18 @@ function ServiceCard({
   service,
   isExpanded,
   onToggle,
+  isMobile = false,
 }: {
   service: ServiceItem;
   isExpanded: boolean;
   onToggle: () => void;
+  isMobile?: boolean;
 }) {
   return (
     <div
-      className={`tilt-card rounded-[20px] bg-navy-raised border border-line p-6 sm:p-7 shadow-lg flex-shrink-0 w-[290px] sm:w-[320px] md:w-auto snap-center flex flex-col justify-between relative ${service.tilt}`}
+      className={`tilt-card rounded-[20px] bg-navy-raised border border-line p-5 sm:p-7 shadow-lg w-full md:w-auto flex flex-col justify-between relative ${
+        isMobile ? "rotate-0" : service.tilt
+      }`}
     >
       {/* Tape label stuck to top-left */}
       <div className="absolute -top-3.5 left-5 z-10">

@@ -43,7 +43,7 @@ export function WaysSection() {
             work with us
             <HeadlineSpark
               color="mint"
-              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+              className="absolute -top-2.5 sm:-top-3.5 -right-5 sm:-right-8"
             />
           </span>
           .
@@ -54,9 +54,9 @@ export function WaysSection() {
       </div>
 
       {/* Two Large Cards side by side */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-16 lg:mb-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-12 sm:mb-16 lg:mb-20">
         {/* Card 1: End-to-End */}
-        <div className="tilt-card -rotate-1 rounded-[24px] bg-navy-raised border border-line p-7 sm:p-9 shadow-xl relative">
+        <div className="tilt-card sm:-rotate-1 rotate-0 rounded-[24px] bg-navy-raised border border-line p-6 sm:p-9 shadow-xl relative">
           <div className="absolute -top-3.5 left-6 z-10">
             <TapeLabel color="mint">End-to-End</TapeLabel>
           </div>
@@ -87,7 +87,7 @@ export function WaysSection() {
         </div>
 
         {/* Card 2: Collaborative */}
-        <div className="tilt-card rotate-1 rounded-[24px] bg-navy-raised border border-line p-7 sm:p-9 shadow-xl relative">
+        <div className="tilt-card sm:rotate-1 rotate-0 rounded-[24px] bg-navy-raised border border-line p-6 sm:p-9 shadow-xl relative">
           <div className="absolute -top-3.5 left-6 z-10">
             <TapeLabel color="sky">Collaborative</TapeLabel>
           </div>

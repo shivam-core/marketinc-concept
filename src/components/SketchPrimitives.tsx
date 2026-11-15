@@ -26,8 +26,9 @@ export function RoughMark({
   const ref = useRef<HTMLSpanElement>(null);
   const [inView, setInView] = useState(false);
 
-  // Default padding: generous for circles so words are completely unobstructed and readable
-  const circleDefault: [number, number] = [18, 30];
+  // Default padding: responsive so circle fits comfortably on both mobile screens and desktop
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+  const circleDefault: [number, number] = isMobile ? [12, 18] : [18, 28];
   const resolvedPadding: number | [number, number] | [number, number, number, number] =
     padding !== undefined
       ? padding
@@ -106,11 +107,9 @@ export function HeadlineSpark({
 
   return (
     <svg
-      width="34"
-      height="34"
       viewBox="0 0 34 34"
       fill="none"
-      className={`inline-block select-none pointer-events-none ${className}`}
+      className={`inline-block select-none pointer-events-none w-6 h-6 sm:w-8 sm:h-8 ${className}`}
       aria-hidden="true"
     >
       {/* Ray 1 (left): graceful upward curve */}

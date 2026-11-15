@@ -45,7 +45,7 @@ export function SoundFamiliarSection() {
             sound familiar?
             <HeadlineSpark
               color="mint"
-              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+              className="absolute -top-2.5 sm:-top-3.5 -right-5 sm:-right-8"
             />
           </span>
         </h2>
@@ -54,12 +54,12 @@ export function SoundFamiliarSection() {
         </p>
       </div>
 
-      {/* Four butter sticky notes, tilted, loose staggered row on desktop / 2x2 grid on mobile */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 items-start">
+      {/* Four butter sticky notes, tilted on desktop, clean alignment on mobile */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-6 items-start">
         {painPoints.map((item, idx) => (
           <div key={idx} className="flex flex-col gap-3">
             <div
-              className={`tilt-card rounded-[4px] bg-butter text-navy p-6 shadow-md select-none min-h-[170px] flex flex-col justify-between ${item.tilt}`}
+              className={`tilt-card rounded-[6px] bg-butter text-navy p-5 sm:p-6 shadow-md select-none min-h-[150px] sm:min-h-[170px] flex flex-col justify-between sm:${item.tilt}`}
             >
               <p className="font-hand text-[26px] font-semibold text-navy leading-[1.2] m-0">
                 &ldquo;{item.note}&rdquo;

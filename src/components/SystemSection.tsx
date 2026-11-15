@@ -130,7 +130,7 @@ export function SystemSection() {
             separate services
             <HeadlineSpark
               color="mint"
-              className="absolute -top-3.5 -right-7 sm:-right-8 w-7 h-7 sm:w-8 sm:h-8"
+              className="absolute -top-2.5 sm:-top-3.5 -right-5 sm:-right-8"
             />
           </span>
           .
@@ -186,7 +186,7 @@ export function SystemSection() {
         {/* Mobile vertical line on the left */}
         <div
           aria-hidden="true"
-          className="md:hidden absolute left-5 top-8 bottom-8 w-[2px] pointer-events-none z-0"
+          className="md:hidden absolute left-[15px] top-6 bottom-6 w-[2px] pointer-events-none z-0"
         >
           <div className="w-full h-full border-l-2 border-dashed border-white/15" />
         </div>
@@ -195,7 +195,7 @@ export function SystemSection() {
         {!prefersReduced && (
           <motion.div
             aria-hidden="true"
-            className="md:hidden absolute left-5 top-8 w-[3px] bg-mint pointer-events-none z-0 rounded-full"
+            className="md:hidden absolute left-[15px] top-6 w-[3px] bg-mint pointer-events-none z-0 rounded-full"
             style={{
               height: mobileLineHeight,
               boxShadow: "0 0 6px 1px rgba(124, 200, 174, 0.5)",
@@ -204,7 +204,7 @@ export function SystemSection() {
         )}
 
         {/* The 5 Stops */}
-        <div className="flex flex-col gap-12 md:gap-16 relative z-10">
+        <div className="flex flex-col gap-8 md:gap-16 relative z-10">
           {stops.map((stop, idx) => {
             const isEven = idx % 2 === 1;
 
@@ -217,9 +217,9 @@ export function SystemSection() {
               >
                 {/* Content Card (Half Width on desktop) */}
                 <div
-                  className="w-full md:w-[calc(50%-48px)] pl-12 md:pl-0 text-left"
+                  className="w-full md:w-[calc(50%-48px)] pl-8 sm:pl-10 md:pl-0 text-left"
                 >
-                  <div className="p-6 sm:p-8 rounded-[20px] bg-navy-raised border border-line shadow-lg hover:border-mint/30 transition-colors">
+                  <div className="p-5 sm:p-8 rounded-[20px] bg-navy-raised border border-line shadow-lg hover:border-mint/30 transition-colors">
                     {/* Header: Number and Stop Title */}
                     <div className="flex items-center gap-3 mb-4">
                       <span

@@ -121,7 +121,7 @@ export function Navigation() {
         className={`fixed left-0 right-0 z-40 pointer-events-none flex justify-center px-3 sm:px-4 transition-[top,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isScrolled
             ? "top-3 md:top-4 pt-0"
-            : "top-[32px] sm:top-[36px] pt-1 sm:pt-2"
+            : "top-[34px] sm:top-[36px] pt-1 sm:pt-2"
         }`}
       >
         <header

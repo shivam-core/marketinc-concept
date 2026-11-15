@@ -25,21 +25,21 @@ const founderReels: ReelItem[] = [
   },
   {
     id: 2,
-    title: "Building the agency team",
-    hook: "“Building the Sydney operations & culture behind client growth.”",
-    videoSrc: "/reels/reel-2.mp4",
-    instagramUrl: "https://www.instagram.com/ujjwalmah/reel/DQ_ZgxCEcc8/",
-    date: "Nov 2025",
-    stats: "1.2K+ views",
-  },
-  {
-    id: 3,
     title: "From intern to agency founder",
     hook: "“The exact process that took me from marketing intern to running MarketInc.”",
     videoSrc: "/reels/reel-3.mp4",
     instagramUrl: "https://www.instagram.com/ujjwalmah/reel/DFP0Hloy_on/",
     date: "Jan 2025",
     stats: "4.1K+ views",
+  },
+  {
+    id: 3,
+    title: "Building the agency team",
+    hook: "“Building the Sydney operations & culture behind client growth.”",
+    videoSrc: "/reels/reel-2.mp4",
+    instagramUrl: "https://www.instagram.com/ujjwalmah/reel/DQ_ZgxCEcc8/",
+    date: "Nov 2025",
+    stats: "1.2K+ views",
   },
 ];
 

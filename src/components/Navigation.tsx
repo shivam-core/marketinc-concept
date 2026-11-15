@@ -28,6 +28,15 @@ export function Navigation() {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
 
+  // Guarantee landing on homepage without a hash starts firmly at the top
+  useEffect(() => {
+    if (typeof window !== "undefined" && !window.location.hash) {
+      if (window.scrollY > 0) {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+      }
+    }
+  }, []);
+
   // Scroll listener with requestAnimationFrame and hysteresis for silky smooth morphing
   useEffect(() => {
     let ticking = false;

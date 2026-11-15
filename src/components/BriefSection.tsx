@@ -62,8 +62,15 @@ export function BriefSection() {
   const prefersReduced = useReducedMotion();
   const headingInView = useInView(headingRef, { once: true, amount: 0.5 });
 
+  const isMounted = useRef(false);
+
   useEffect(() => {
-    stepHeadingRef.current?.focus();
+    // Never focus or scroll on initial page mount - only when the user explicitly advances steps
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
+    stepHeadingRef.current?.focus({ preventScroll: true });
   }, [step]);
 
   const handleBusinessTypeChange = (val: BusinessType) => {

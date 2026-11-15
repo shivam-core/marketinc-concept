@@ -157,8 +157,7 @@ export function SystemSection() {
                 strokeLinecap="round"
                 style={{
                   pathLength: smoothProgress,
-                  filter:
-                    "drop-shadow(0 0 8px rgba(124, 200, 174, 0.9)) drop-shadow(0 0 16px rgba(124, 200, 174, 0.45))",
+                  filter: "drop-shadow(0 0 5px rgba(124, 200, 174, 0.5))",
                 }}
               />
             ) : (
@@ -187,8 +186,7 @@ export function SystemSection() {
             className="md:hidden absolute left-5 top-8 w-[3px] bg-mint pointer-events-none z-0 rounded-full"
             style={{
               height: mobileLineHeight,
-              boxShadow:
-                "0 0 10px 2px rgba(124, 200, 174, 0.9), 0 0 18px 4px rgba(124, 200, 174, 0.5)",
+              boxShadow: "0 0 6px 1px rgba(124, 200, 174, 0.5)",
             }}
           />
         )}

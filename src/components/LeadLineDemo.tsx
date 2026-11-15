@@ -222,24 +222,22 @@ export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
           aria-hidden="true"
         />
 
-        {/* Vertical Mint Glowing Line (scroll-driven at user's pace) */}
+        {/* Vertical Mint Glowing Line (scroll-driven, refined subtle glow) */}
         <div
           className="absolute top-[10px] left-[9px] w-[2px] bg-mint z-0 pointer-events-none rounded-full"
           style={{
             height: `calc(${lineProgress * 100}% - ${lineProgress * 28}px)`,
-            boxShadow:
-              "0 0 10px 2px rgba(124, 200, 174, 0.9), 0 0 20px 4px rgba(124, 200, 174, 0.45)",
+            boxShadow: "0 0 5px 1px rgba(124, 200, 174, 0.45)",
           }}
           aria-hidden="true"
         />
 
-        {/* Glowing Head Dot leading the line */}
+        {/* Head Dot leading the line (refined subtle glow) */}
         <div
           className="absolute left-[5px] w-2.5 h-2.5 rounded-full bg-mint z-10 pointer-events-none"
           style={{
             top: `calc(10px + ${lineProgress * 100}% - ${lineProgress * 28}px - 5px)`,
-            boxShadow:
-              "0 0 12px 4px rgba(124, 200, 174, 1), 0 0 24px 6px rgba(124, 200, 174, 0.6)",
+            boxShadow: "0 0 6px 1.5px rgba(124, 200, 174, 0.65)",
           }}
           aria-hidden="true"
         />
@@ -262,7 +260,7 @@ export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
                 <div
                   className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${
                     isPassedOrCurrent
-                      ? "bg-mint ring-4 ring-mint/25 shadow-[0_0_12px_rgba(124,200,174,0.7)] scale-100"
+                      ? "bg-mint ring-4 ring-mint/20 shadow-[0_0_6px_rgba(124,200,174,0.4)] scale-100"
                       : "border-2 border-line bg-navy-deep scale-90 opacity-50"
                   }`}
                 />

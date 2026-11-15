@@ -97,6 +97,88 @@ export function Hero({ forcedDemoTab }: HeroProps) {
               Call 0450 406 450
             </SecondaryButton>
           </div>
+
+          {/* Trust Highlights & Core Commitments (balances the 5-card vertical demo) */}
+          <div className="mt-10 sm:mt-12 pt-8 border-t border-line/60 max-w-xl">
+            {/* Quick stats ribbon */}
+            <div className="grid grid-cols-3 gap-4 pb-6 border-b border-line/40">
+              <div>
+                <p className="text-[1.5rem] sm:text-[1.75rem] font-bold text-white tabular-nums m-0">
+                  150+
+                </p>
+                <p className="text-[0.8125rem] text-mist m-0 leading-tight">
+                  Service businesses
+                </p>
+              </div>
+              <div>
+                <p className="text-[1.5rem] sm:text-[1.75rem] font-bold text-mint tabular-nums m-0">
+                  6+ Yrs
+                </p>
+                <p className="text-[0.8125rem] text-mist m-0 leading-tight">
+                  Tested systems
+                </p>
+              </div>
+              <div>
+                <p className="text-[1.5rem] sm:text-[1.75rem] font-bold text-white tabular-nums m-0">
+                  100%
+                </p>
+                <p className="text-[0.8125rem] text-mist m-0 leading-tight">
+                  Attribution clarity
+                </p>
+              </div>
+            </div>
+
+            {/* 3 Core Assurances */}
+            <div className="pt-6 space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-full bg-mint/15 text-mint flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="2.5 6 4.8 8.5 9.5 3.5" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-[0.9375rem] font-bold text-white m-0">
+                    No lock-in contracts
+                  </p>
+                  <p className="text-[0.875rem] text-mist m-0 leading-relaxed">
+                    Month-to-month accountability. We stay because the system consistently fills your job diary.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-full bg-mint/15 text-mint flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="2.5 6 4.8 8.5 9.5 3.5" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-[0.9375rem] font-bold text-white m-0">
+                    End-to-end attribution
+                  </p>
+                  <p className="text-[0.875rem] text-mist m-0 leading-relaxed">
+                    Every call, form enquiry, and dollar is tied directly back to the keyword and campaign that produced it.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-full bg-mint/15 text-mint flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="2.5 6 4.8 8.5 9.5 3.5" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-[0.9375rem] font-bold text-white m-0">
+                    Local area protection
+                  </p>
+                  <p className="text-[0.875rem] text-mist m-0 leading-relaxed">
+                    We partner exclusively with one provider per trade per primary service zone in Australia.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Right Column (5 of 12): Vertical Lead Line Demo */}

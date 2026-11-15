@@ -8,6 +8,7 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { IndustriesSection } from "@/components/IndustriesSection";
 import { WaysSection } from "@/components/WaysSection";
 import { ResultsSection } from "@/components/ResultsSection";
+import { FounderReelsSection } from "@/components/FounderReelsSection";
 import { FAQSection } from "@/components/FAQSection";
 import { BriefSection } from "@/components/BriefSection";
 import { DesignNoteCard } from "@/components/DesignNotes";
@@ -52,6 +53,9 @@ export default function HomePage() {
 
       {/* 9.11 Results */}
       <ResultsSection />
+
+      {/* Meet the Founder (Instagram Reels) */}
+      <FounderReelsSection />
 
       {/* 9.12 Questions (#faq) */}
       <FAQSection />

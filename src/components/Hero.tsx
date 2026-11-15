@@ -24,7 +24,7 @@ export function Hero({ forcedDemoTab }: HeroProps) {
   return (
     <section
       aria-label="Hero"
-      className="container-site pt-28 sm:pt-32 pb-16 lg:pt-36 lg:pb-24 relative"
+      className="container-site pt-32 sm:pt-36 pb-16 lg:pt-40 lg:pb-24 relative"
     >
       <DesignNoteCard
         number={1}

@@ -28,10 +28,23 @@ export function Navigation() {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
 
-  // Scroll listener for 80px morph
+  // Scroll listener with requestAnimationFrame and hysteresis for silky smooth morphing
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 80);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY;
+          setIsScrolled((prev) => {
+            if (!prev && y > 60) return true;
+            if (prev && y < 25) return false;
+            return prev;
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -94,14 +107,21 @@ export function Navigation() {
 
   return (
     <>
-      {/* Outer wrapper: fixed top-0, handles morph positioning */}
-      <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none flex justify-center pt-2 md:pt-4 px-3 sm:px-4">
+      {/* Outer wrapper: smoothly transitions between landing position (below concept bar) and floating pill position */}
+      <div
+        className={`fixed left-0 right-0 z-40 pointer-events-none flex justify-center px-3 sm:px-4 transition-[top,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isScrolled
+            ? "top-3 md:top-4 pt-0"
+            : "top-[32px] sm:top-[36px] pt-1 sm:pt-2"
+        }`}
+      >
         <header
-          className={`pointer-events-auto transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`pointer-events-auto w-full transition-[max-width,padding,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-[999px] ${
             isScrolled
-              ? "w-auto max-w-[96vw] rounded-[999px] bg-[#181F3B]/80 backdrop-blur-[20px] backdrop-saturate-[160%] [-webkit-backdrop-filter:blur(20px)_saturate(160%)] border border-white/14 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.6)] px-5 sm:px-6 py-2 [box-shadow:inset_0_1px_0_rgba(255,255,255,0.12),0_12px_40px_-12px_rgba(0,0,0,0.6)]"
-              : "w-full max-w-[1320px] rounded-none bg-transparent border-transparent px-4 sm:px-8 py-3"
+              ? "max-w-[94vw] lg:max-w-[860px] xl:max-w-[880px] bg-[#181F3B]/85 backdrop-blur-[20px] backdrop-saturate-[160%] border border-white/14 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.6)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.12),0_12px_40px_-12px_rgba(0,0,0,0.6)] px-5 sm:px-6 py-2"
+              : "max-w-[1320px] bg-transparent border border-transparent shadow-none px-4 sm:px-8 py-3"
           }`}
+          style={{ willChange: "max-width, transform" }}
         >
           <div className="flex items-center justify-between gap-5 sm:gap-8">
             {/* Wordmark (white lowercase with mint dot) */}
@@ -140,23 +160,27 @@ export function Navigation() {
               })}
             </nav>
 
-            {/* Right side: Phone number & Book button */}
-            <div className="hidden lg:flex items-center gap-4 xl:gap-5 flex-shrink-0">
-              {!isScrolled && (
+            {/* Right side: Smoothly collapsing phone number & Book button */}
+            <div className="hidden lg:flex items-center gap-3 xl:gap-4 flex-shrink-0">
+              <div
+                className={`transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex items-center ${
+                  isScrolled
+                    ? "max-w-0 opacity-0 -translate-x-3 pointer-events-none"
+                    : "max-w-[140px] opacity-100 translate-x-0"
+                }`}
+              >
                 <a
                   href="tel:+61450406450"
-                  className="font-body text-[0.9375rem] text-mist hover:text-white whitespace-nowrap transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm"
+                  tabIndex={isScrolled ? -1 : 0}
+                  className="font-body text-[0.9375rem] text-mist hover:text-white whitespace-nowrap transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm pr-2"
                 >
                   0450 406 450
                 </a>
-              )}
+              </div>
+
               <a
                 href="#brief"
-                className={`inline-flex items-center justify-center whitespace-nowrap rounded-[999px] bg-mint text-navy font-body font-medium transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint leading-none ${
-                  isScrolled
-                    ? "h-[42px] px-5 text-[0.9375rem]"
-                    : "h-[48px] px-6 text-[0.9375rem]"
-                }`}
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-[999px] bg-mint text-navy font-body font-medium transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint leading-none h-[44px] px-5 sm:px-6 text-[0.9375rem]"
               >
                 Book a strategy call
               </a>

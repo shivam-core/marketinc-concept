@@ -8,17 +8,18 @@ export function ConceptBar() {
 
   return (
     <aside
+      id="concept-bar"
       aria-label="Concept disclaimer and design controls"
-      className="w-full bg-navy-deep text-white text-[0.875rem] py-2 px-5 sm:px-8 lg:px-12 border-b border-line relative z-50"
+      className="w-full bg-navy-deep text-white text-[0.8125rem] py-1.5 px-4 sm:px-8 lg:px-12 border-b border-line/60 relative z-50 transition-colors"
     >
-      <div className="max-w-[1320px] mx-auto flex flex-wrap items-center justify-between gap-3">
-        <p className="m-0 text-mist text-[0.875rem] leading-snug">
+      <div className="max-w-[1320px] mx-auto flex flex-wrap items-center justify-between gap-2.5">
+        <p className="m-0 text-mist text-[0.8125rem] leading-snug">
           Unofficial redesign concept by Shivam Kore. Not affiliated with MarketInc.
         </p>
 
         <label
           htmlFor="design-notes-switch"
-          className="inline-flex items-center gap-2 cursor-pointer select-none text-[0.875rem] text-mist hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 cursor-pointer select-none text-[0.8125rem] text-mist hover:text-white transition-colors"
         >
           <span>Design notes</span>
           <div className="relative inline-flex items-center">
@@ -30,9 +31,9 @@ export function ConceptBar() {
               className="sr-only peer"
               aria-label="Toggle design notes mode"
             />
-            <div className="w-9 h-5 bg-white/20 peer-focus-visible:ring-2 peer-focus-visible:ring-mint rounded-full peer peer-checked:bg-mint transition-colors duration-200">
+            <div className="w-8 h-4 bg-white/20 peer-focus-visible:ring-2 peer-focus-visible:ring-mint rounded-full peer peer-checked:bg-mint transition-colors duration-200">
               <div
-                className={`w-3.5 h-3.5 bg-navy-deep rounded-full absolute top-[3px] left-[3px] transition-transform duration-200 ${
+                className={`w-3 h-3 bg-navy-deep rounded-full absolute top-[2px] left-[2px] transition-transform duration-200 ${
                   enabled ? "translate-x-4" : ""
                 }`}
               />

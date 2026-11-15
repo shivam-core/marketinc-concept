@@ -226,29 +226,15 @@ export function FounderReelsSection() {
                 aria-hidden="true"
               />
 
-              {/* Top Bar: Founder profile badge + Instagram icon link */}
-              <div className="relative z-20 p-4 sm:p-5 flex items-center justify-between text-white">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-navy border border-mint/40 flex items-center justify-center text-mint font-bold text-xs shadow-md">
-                    UM
-                  </div>
-                  <div className="leading-tight">
-                    <p className="font-bold text-[0.875rem] text-white m-0">
-                      Ujjwal Maheshwari
-                    </p>
-                    <p className="text-[0.75rem] text-mist m-0">
-                      @ujjwalmah
-                    </p>
-                  </div>
-                </div>
-
+              {/* Top Bar: Instagram icon link on the right corner */}
+              <div className="relative z-20 p-4 sm:p-5 flex items-center justify-end text-white">
                 <a
                   href={reel.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   aria-label="Open reel on Instagram"
-                  className="w-8 h-8 rounded-full bg-navy/80 hover:bg-navy border border-white/20 flex items-center justify-center text-white/80 hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-full bg-navy/80 hover:bg-navy border border-white/20 flex items-center justify-center text-white/80 hover:text-white transition-colors backdrop-blur-sm"
                 >
                   <svg
                     width="15"

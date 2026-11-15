@@ -137,7 +137,69 @@ export function Footer() {
               <p className="m-0 text-mist">
                 161 Castlereagh St, Sydney NSW 2000
               </p>
+              <div className="pt-2 flex items-center gap-3">
+                <a
+                  href="https://www.instagram.com/marketincau/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="MarketInc on Instagram"
+                  className="w-10 h-10 rounded-full border border-line bg-navy flex items-center justify-center text-mist hover:text-mint hover:border-mint hover:scale-105 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/marketincorporated/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="MarketInc on LinkedIn"
+                  className="w-10 h-10 rounded-full border border-line bg-navy flex items-center justify-center text-mist hover:text-mint hover:border-mint hover:scale-105 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.79v8.37H6.46v-8.37M7.86 6.3a1.64 1.64 0 0 0-1.66 1.64 1.65 1.65 0 0 0 1.66 1.65 1.65 1.65 0 0 0 1.65-1.65A1.64 1.64 0 0 0 7.86 6.3z" />
+                  </svg>
+                </a>
+              </div>
             </address>
+          </div>
+        </div>
+
+        {/* Bottom Social & Disclaimer Row */}
+        <div className="pt-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-line/30 pb-8">
+          <div className="flex items-center gap-3">
+            <span className="text-[0.875rem] text-mist/70 font-medium">Connect with MarketInc:</span>
+            <a
+              href="https://www.instagram.com/marketincau/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="MarketInc on Instagram"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-line bg-navy/60 text-[0.875rem] text-mist hover:text-white hover:border-mint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+            >
+              <svg className="w-4 h-4 text-mint" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span>Instagram</span>
+            </a>
+            <a
+              href="https://www.linkedin.com/company/marketincorporated/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="MarketInc on LinkedIn"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-line bg-navy/60 text-[0.875rem] text-mist hover:text-white hover:border-mint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+            >
+              <svg className="w-4 h-4 text-mint" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.79v8.37H6.46v-8.37M7.86 6.3a1.64 1.64 0 0 0-1.66 1.64 1.65 1.65 0 0 0 1.66 1.65 1.65 1.65 0 0 0 1.65-1.65A1.64 1.64 0 0 0 7.86 6.3z" />
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+          <div className="text-[0.875rem] text-mist/60 font-mono">
+            © 2026 MarketInc Concept
           </div>
         </div>
 

@@ -103,10 +103,6 @@ export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
     }
   };
 
-  const handleReplay = () => {
-    runAnimation(2500);
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
     const totalTabs = industryTabLabels.length;
     let newIndex = index;
@@ -147,52 +143,37 @@ export function LeadLineDemo({ forcedTab }: LeadLineDemoProps) {
         <HandArrow direction="down-right" color="butter" className="w-6 h-5" />
       </div>
 
-      {/* Tabs Row (sideways scrolling with fade on right edge on mobile) */}
-      <div className="relative mb-6 pb-4 border-b border-line flex items-center justify-between gap-3">
-        <div className="relative flex-1 overflow-hidden">
-          <div
-            ref={tabListRef}
-            role="tablist"
-            aria-label="Industries"
-            className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 pr-6"
-          >
-            {industryTabLabels.map((tab, idx) => {
-              const isSelected = selectedTab === tab.slug;
-              return (
-                <button
-                  key={tab.slug}
-                  role="tab"
-                  id={`tab-${tab.slug}`}
-                  aria-selected={isSelected}
-                  aria-controls={`panel-${tab.slug}`}
-                  tabIndex={isSelected ? 0 : -1}
-                  onClick={() => handleSelectTab(tab.slug)}
-                  onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className={`px-3.5 py-1.5 rounded-[999px] text-[0.875rem] font-medium transition-colors duration-150 select-none whitespace-nowrap min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint ${
-                    isSelected
-                      ? "bg-mint text-navy font-bold"
-                      : "bg-navy-deep text-mist hover:text-white border border-line"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
-          {/* Subtle fade on right edge so last tab is not cut off abruptly */}
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-navy-raised to-transparent sm:hidden" />
-        </div>
-
-        {/* Replay button */}
-        <button
-          type="button"
-          onClick={handleReplay}
-          disabled={isPlaying}
-          className="text-[0.875rem] font-medium text-mist hover:text-white transition-colors min-h-[40px] px-2 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm flex-shrink-0"
-          aria-label="Replay lead journey"
+      {/* Tabs Row */}
+      <div className="relative mb-6 pb-4 border-b border-line">
+        <div
+          ref={tabListRef}
+          role="tablist"
+          aria-label="Industries"
+          className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1"
         >
-          <span aria-hidden="true" className="text-sm">↻</span> Replay
-        </button>
+          {industryTabLabels.map((tab, idx) => {
+            const isSelected = selectedTab === tab.slug;
+            return (
+              <button
+                key={tab.slug}
+                role="tab"
+                id={`tab-${tab.slug}`}
+                aria-selected={isSelected}
+                aria-controls={`panel-${tab.slug}`}
+                tabIndex={isSelected ? 0 : -1}
+                onClick={() => handleSelectTab(tab.slug)}
+                onKeyDown={(e) => handleKeyDown(e, idx)}
+                className={`px-3.5 py-1.5 rounded-[999px] text-[0.875rem] font-medium transition-colors duration-150 select-none whitespace-nowrap min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint ${
+                  isSelected
+                    ? "bg-mint text-navy font-bold"
+                    : "bg-navy-deep text-mist hover:text-white border border-line"
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* VERTICAL LAYOUT FOR EVERY SCREEN SIZE */}

@@ -52,7 +52,7 @@ export function SearchTicker() {
 
       <div className="container-site mt-3 text-left">
         <p className="text-[0.875rem] text-mist m-0">
-          Examples of what your customers type.
+          Examples of what high-intent service customers search when they are ready to book.
         </p>
       </div>
     </div>

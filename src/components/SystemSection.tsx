@@ -99,7 +99,7 @@ export function SystemSection() {
           <Spark color="sky" />
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
-          Most agencies sell you ads. Ads only do the first part. Leads go missing at every step after that, so we build all five.
+          Growth doesn&apos;t come from one channel alone. We build connected systems where your website, ads, SEO, and CRM work together to attract leads, track performance, and improve conversions across the entire journey.
         </p>
       </div>
 

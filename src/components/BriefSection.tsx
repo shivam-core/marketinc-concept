@@ -206,13 +206,13 @@ export function BriefSection() {
             <h2
               id="brief-heading"
               ref={headingRef}
-              className="text-display-xl text-white font-bold tracking-[-0.03em] leading-[1] m-0 mb-6"
+              className="text-display-l text-white font-bold tracking-[-0.03em] leading-[1.05] m-0 mb-6"
             >
-              <span>Let&apos;s find your </span>
+              <span>Start with a useful </span>
               {/* Keep full stop strictly inline with last word so it never wraps alone */}
               <span className="whitespace-nowrap inline-block relative">
                 <RoughMark type="underline" color="#7CC8AE" iterations={2}>
-                  full stop
+                  conversation
                 </RoughMark>
                 {/* Semantic screen reader dot */}
                 <span className="sr-only">.</span>
@@ -244,7 +244,7 @@ export function BriefSection() {
             </h2>
 
             <p className="font-body text-body-l text-mist leading-[1.45] max-w-md m-0 mb-8">
-              Tell us where leads go missing. We reply within one working day.
+              Tell us where growth feels stuck. A focused three-step brief helps us prepare practical ideas before we speak. One working day response — no pressure, no recycled pitch deck.
             </p>
 
             <div className="mb-8">

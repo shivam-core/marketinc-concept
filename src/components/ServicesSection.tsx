@@ -16,71 +16,71 @@ interface ServiceItem {
 const services: ServiceItem[] = [
   {
     id: "google-ads",
-    tapeLabel: "Stop 1",
+    tapeLabel: "Paid Search",
     tapeColor: "mint",
     title: "Google Ads",
-    promise: "Be the first business people see when they search for what you do.",
+    promise: "High-intent search campaigns designed to capture demand, control spend, and generate qualified enquiries when customers are ready to convert.",
     whatYouGet: [
-      "Campaigns built around the jobs you want more of.",
-      "Keywords chosen for intent to book.",
-      "Call and form tracking.",
-      "Clear monthly reporting.",
+      "Search campaigns built for high-intent job searches.",
+      "Negative keyword lists to eliminate wasted ad budget.",
+      "End-to-end call and web form conversion tracking.",
+      "Transparent monthly reporting on lead volume and cost-per-lead.",
     ],
     tilt: "-rotate-1",
   },
   {
     id: "meta-ads",
-    tapeLabel: "Stop 1",
+    tapeLabel: "Paid Social",
     tapeColor: "mint",
     title: "Meta Ads",
-    promise: "Reach people in your area before they start searching.",
+    promise: "Performance-driven campaigns across Facebook and Instagram, built around clear offers, tested creatives, and continuous optimisation.",
     whatYouGet: [
-      "Facebook and Instagram campaigns.",
-      "Offers built for your service area.",
-      "Creative tested in rounds.",
-      "Lead forms connected to your CRM.",
+      "Hyper-local geographic and demographic audience targeting.",
+      "Proven ad creatives and compelling service offer angles.",
+      "Direct lead generation forms synced instantly with your CRM.",
+      "Iterative testing rounds to scale winning ad sets.",
     ],
     tilt: "rotate-1",
   },
   {
     id: "seo",
-    tapeLabel: "Stop 1",
+    tapeLabel: "Organic Search",
     tapeColor: "mint",
-    title: "SEO",
-    promise: "Show up without paying for every click.",
+    title: "SEO & Local SEO",
+    promise: "Compounding organic visibility across Google search, Maps, and Google Business Profile so you show up without paying for every click.",
     whatYouGet: [
-      "Local search and Google Business Profile.",
-      "Pages for each service and suburb.",
-      "Technical fixes.",
-      "Content that answers what customers ask.",
+      "Google Business Profile setup and local map pack optimisation.",
+      "Targeted service and suburb landing page architecture.",
+      "Technical fixes and speed optimisations for mobile users.",
+      "High-value content tailored to what your customers actively search.",
     ],
     tilt: "-rotate-1",
   },
   {
     id: "website-design",
-    tapeLabel: "Stops 2 & 3",
+    tapeLabel: "Web & UX",
     tapeColor: "sky",
-    title: "Website design",
-    promise: "A site that turns visitors into enquiries, on a phone, in seconds.",
+    title: "Website Design & Development",
+    promise: "High-converting, mobile-optimised websites and landing pages built to turn traffic into qualified phone calls and enquiries.",
     whatYouGet: [
-      "A page per job type.",
-      "Fast load on mobile.",
-      "Short forms and tap-to-call.",
-      "Tracking on every enquiry.",
+      "Dedicated, focused pages for each core service you offer.",
+      "Ultra-fast loading on mobile phones over 4G/5G connections.",
+      "Short friction-free forms and prominent tap-to-call buttons.",
+      "Full analytics integration to trace every enquiry to its traffic source.",
     ],
     tilt: "rotate-[1.5deg]",
   },
   {
     id: "crm-automation",
-    tapeLabel: "Stop 4",
+    tapeLabel: "Automation",
     tapeColor: "butter",
-    title: "CRM and automation",
-    promise: "Every enquiry answered in minutes, even when you're on the tools.",
+    title: "CRM + Automation",
+    promise: "Lead management systems, CRM setup, and automated follow-ups that reduce missed opportunities and improve conversion rates.",
     whatYouGet: [
-      "CRM set up around how you quote and book.",
-      "Instant text and email replies.",
-      "Reminders for your team.",
-      "Follow-ups for quotes that go quiet.",
+      "CRM pipeline custom-configured around your quoting workflow.",
+      "Instant automated SMS and email confirmations to new enquiries.",
+      "Immediate alert notifications for your team on high-priority leads.",
+      "Automated follow-up sequences for quotes that have gone quiet.",
     ],
     tilt: "-rotate-[1.5deg]",
   },
@@ -106,20 +106,18 @@ export function ServicesSection() {
         >
           <span>
             <RoughMark type="circle" color="#7CC8AE" iterations={2}>
-              Five
-            </RoughMark>{" "}
-            services, one line
+              Our Services
+            </RoughMark>
           </span>
           <Spark color="mint" />
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
-          Everything we build fits into one continuous path from click to booking.
+          Focused strategies. Measurable outcomes. Scalable growth. Everything we build is designed to drive measurable growth for your business.
         </p>
       </div>
 
       {/* Services Grid (3 then 2 on desktop, horizontal scrolling row with peek on mobile) */}
       <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible pb-4 md:pb-0 -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0 snap-x snap-mandatory">
-        {/* Top 3 cards */}
         {services.slice(0, 3).map((svc) => (
           <ServiceCard
             key={svc.id}
@@ -128,8 +126,6 @@ export function ServicesSection() {
             onToggle={() => toggleExpand(svc.id)}
           />
         ))}
-
-        {/* Bottom 2 cards (centred in 3-col on desktop: col-span-1 md:col-start-1 or layout in 2-col wrapper) */}
       </div>
 
       <div className="flex md:grid md:grid-cols-2 md:max-w-4xl md:mx-auto gap-6 mt-6 overflow-x-auto md:overflow-visible pb-4 md:pb-0 -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0 snap-x snap-mandatory">

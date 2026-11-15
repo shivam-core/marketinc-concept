@@ -28,8 +28,8 @@ export function Hero({ forcedDemoTab }: HeroProps) {
     >
       <DesignNoteCard
         number={1}
-        title="Says who it's for in five seconds"
-        note="The current headline could belong to any agency. This one names the outcome a service business owner cares about, and the line beside it names the audience."
+        title="Predictable outcomes built to scale"
+        note="Keeps MarketInc's authentic brand positioning: predictable leads, real growth, and systems built to scale for service businesses."
         arrowDirection="down-right"
       />
 
@@ -37,7 +37,7 @@ export function Hero({ forcedDemoTab }: HeroProps) {
         {/* Left Column (7 of 12) */}
         <div className="lg:col-span-7 flex flex-col justify-between">
           <div>
-            <h1 className="text-[clamp(2.125rem,4.2vw,3.85rem)] text-white font-bold tracking-[-0.03em] leading-[1.08] m-0 mb-6 relative">
+            <h1 className="text-[clamp(2.25rem,4.5vw,4.25rem)] text-white font-bold tracking-[-0.03em] leading-[1.05] m-0 mb-6 relative">
               <span className="block">Predictable Leads.</span>
               <span className="block">
                 <span>Real Growth. Built to </span>
@@ -77,17 +77,9 @@ export function Hero({ forcedDemoTab }: HeroProps) {
               </span>
             </h1>
 
-            {/* Handwriting note pointing to the mint full stop: "this dot is a lead. follow it" */}
-            <div className="flex items-start gap-2 text-mint mb-8 select-none">
-              <HandArrow direction="up-right" color="mint" className="w-8 h-7 mt-1 -rotate-12" />
-              <span className="font-hand text-[24px] sm:text-[26px] leading-tight">
-                this dot is a lead. follow it
-              </span>
-            </div>
-
-            {/* Supporting text in --mist */}
+            {/* Supporting text directly from marketinc.com.au */}
             <p className="font-body text-body-l text-mist leading-[1.45] max-w-xl m-0 mb-8">
-              Marketing for service businesses. We build the whole path from the first search to a job in the diary.
+              We help service businesses scale through strategy-led growth, not just marketing tactics. We build connected systems across websites, SEO, paid ads, and CRM to turn high-intent traffic into qualified enquiries.
             </p>
           </div>
 

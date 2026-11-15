@@ -5,24 +5,24 @@ import { Spark, TapeLabel } from "./SketchPrimitives";
 
 const processSteps = [
   {
-    num: 1,
-    title: "Discovery",
-    desc: "We look at your market, your competitors and your numbers to find where leads are going missing.",
+    num: "01",
+    title: "Discovery & Research",
+    desc: "We start by understanding your business, goals, and current performance. Analysing your market, competitors, customer behaviour, and existing data to identify where the biggest growth opportunities lie.",
   },
   {
-    num: 2,
-    title: "Plan",
-    desc: "We choose the channels, the offer and the path from first click to enquiry.",
+    num: "02",
+    title: "Strategy & Funnel Planning",
+    desc: "Using insights from discovery, we design a tailored growth strategy and funnel. Defining the right channels, messaging, offers, and conversion paths needed to guide leads from first click to enquiry.",
   },
   {
-    num: 3,
-    title: "Build and launch",
-    desc: "Campaigns, pages, tracking and CRM go live, measured from day one.",
+    num: "03",
+    title: "Build, Launch & Track",
+    desc: "We build and launch the required assets — campaigns, landing pages, tracking, and CRM integrations. Everything is set up to capture, track, and measure leads accurately from day one.",
   },
   {
-    num: 4,
-    title: "Optimise",
-    desc: "We keep what works, cut what doesn't, and scale without losing lead quality.",
+    num: "04",
+    title: "Optimise & Scale Performance",
+    desc: "Once live, we monitor performance across channels and optimise continuously. By doubling down on what works, we scale results while maintaining lead quality and cost control over time.",
   },
 ];
 
@@ -42,80 +42,83 @@ export function WaysSection() {
           <Spark color="sky" />
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
-          Whether you need a complete outsourced growth team or targeted expertise for your existing setup.
+          Scaling a service business requires more than running ads or redesigning a website. We partner with you to deliver consistent, measurable results.
         </p>
       </div>
 
       {/* Two Large Cards side by side */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-16 lg:mb-20">
-        {/* Card 1: Done for you */}
+        {/* Card 1: End-to-End */}
         <div className="tilt-card -rotate-1 rounded-[24px] bg-navy-raised border border-line p-7 sm:p-9 shadow-xl relative">
           <div className="absolute -top-3.5 left-6 z-10">
-            <TapeLabel color="mint">Done for you</TapeLabel>
+            <TapeLabel color="mint">End-to-End</TapeLabel>
           </div>
 
           <div className="pt-2">
             <h3 className="font-display font-bold text-display-m text-white m-0 mb-3">
-              We run the lot
+              Full growth system management
             </h3>
             <p className="font-body text-[1rem] text-mist leading-relaxed m-0 mb-6">
-              We build and run your whole lead system, end to end.
+              We manage your entire growth system end-to-end — from ads and SEO to web design and CRM.
             </p>
 
             <ul className="space-y-3 font-body text-[0.9375rem] text-white/90 pt-4 border-t border-line/60">
               <li className="flex items-center gap-2.5">
                 <span aria-hidden="true" className="w-2 h-2 rounded-full bg-mint" />
-                <span>All five stops.</span>
+                <span>Strategy, design, and performance marketing working as one.</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <span aria-hidden="true" className="w-2 h-2 rounded-full bg-mint" />
-                <span>One team.</span>
+                <span>Single dedicated growth partner for your business.</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <span aria-hidden="true" className="w-2 h-2 rounded-full bg-mint" />
-                <span>One monthly report.</span>
+                <span>Clear monthly reporting on leads, revenue, and ROI.</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Card 2: Alongside you */}
+        {/* Card 2: Collaborative */}
         <div className="tilt-card rotate-1 rounded-[24px] bg-navy-raised border border-line p-7 sm:p-9 shadow-xl relative">
           <div className="absolute -top-3.5 left-6 z-10">
-            <TapeLabel color="sky">Alongside you</TapeLabel>
+            <TapeLabel color="sky">Collaborative</TapeLabel>
           </div>
 
           <div className="pt-2">
             <h3 className="font-display font-bold text-display-m text-white m-0 mb-3">
-              We work with your team
+              Collaborate with your existing team
             </h3>
             <p className="font-body text-[1rem] text-mist leading-relaxed m-0 mb-6">
-              We slot in beside your in-house people and the partners you already have.
+              We slot in beside your in-house people and existing partners to strengthen specific channels and conversion paths.
             </p>
 
             <ul className="space-y-3 font-body text-[0.9375rem] text-white/90 pt-4 border-t border-line/60">
               <li className="flex items-center gap-2.5">
                 <span aria-hidden="true" className="w-2 h-2 rounded-full bg-sky" />
-                <span>The stops you need help with.</span>
+                <span>Targeted expertise for the channels where leads feel stuck.</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <span aria-hidden="true" className="w-2 h-2 rounded-full bg-sky" />
-                <span>Your tools, your team.</span>
+                <span>Integrated into your existing software and workflows.</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <span aria-hidden="true" className="w-2 h-2 rounded-full bg-sky" />
-                <span>Clear handover.</span>
+                <span>Transparent collaboration and knowledge sharing.</span>
               </li>
             </ul>
           </div>
         </div>
       </div>
 
-      {/* Process: 4 steps on one hand-drawn line with mint dots */}
+      {/* Process: 4 steps on one hand-drawn line */}
       <div className="pt-8">
-        <h3 className="font-display font-bold text-display-m text-white m-0 mb-8">
-          The four-step process
+        <h3 className="font-display font-bold text-display-m text-white m-0 mb-2">
+          A proven process to build and scale lead generation systems
         </h3>
+        <p className="font-body text-[0.9375rem] text-mist leading-relaxed m-0 mb-8 max-w-2xl">
+          We follow a clear, structured approach to plan, build, and optimise systems that deliver consistent, measurable results.
+        </p>
 
         <div className="relative">
           {/* Hand-drawn SVG connecting line on desktop */}
@@ -147,7 +150,7 @@ export function WaysSection() {
                     {step.num}
                   </div>
                   <h4 className="font-display font-bold text-[1.125rem] text-white m-0">
-                    {step.title}.
+                    {step.title}
                   </h4>
                 </div>
                 <p className="font-body text-[0.9375rem] text-mist leading-relaxed m-0">

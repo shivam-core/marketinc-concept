@@ -12,15 +12,21 @@ interface FAQItem {
 const faqs: FAQItem[] = [
   {
     id: "faq-1",
-    question: "What kind of businesses do you work with?",
+    question: "What type of businesses do you work with?",
     answer:
-      "Service businesses. Mostly home and trade services, healthcare, professional services, and finance.",
+      "We work exclusively with service-based businesses across trades, healthcare, professional services, and finance focused on lead generation and measurable growth.",
   },
   {
     id: "faq-2",
-    question: "Do you manage everything, or work with our existing team?",
+    question: "Do you manage everything or work with our existing team?",
     answer:
-      "Either. We can run the whole system end to end, or work alongside your team and the partners you already have.",
+      "We can manage your entire growth system end-to-end or collaborate with your internal team and the partners you already have.",
+  },
+  {
+    id: "faq-3",
+    question: "Is there a cost for the initial consultation?",
+    answer:
+      "No. The initial strategy call is free and focused on understanding your goals, challenges, and growth opportunities.",
   },
 ];
 
@@ -44,7 +50,7 @@ export function FAQSection() {
           id="faq-heading"
           className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3"
         >
-          <span>Questions</span>
+          <span>Frequently Asked Questions</span>
           <Spark color="sky" />
         </h2>
       </div>

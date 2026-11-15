@@ -14,29 +14,29 @@ interface IndustryCardData {
 const industryList: IndustryCardData[] = [
   {
     slug: "trades",
-    name: "Home and trade services",
-    text: "People search when something breaks. The business that answers first usually gets the job. We build for speed.",
+    name: "Home & Trade Services",
+    text: "We help service-based businesses strengthen their local presence, attract high-intent customers, and convert enquiries consistently.",
     tilt: "-rotate-1",
     icon: <VanDoodle className="w-12 h-12" />,
   },
   {
     slug: "healthcare",
     name: "Healthcare",
-    text: "Patients choose on trust and convenience. We build clear pages, simple booking, and advertising that stays inside the rules for health services.",
+    text: "Strategic digital marketing solutions focused on trust, compliance, and attracting the right audience.",
     tilt: "rotate-1",
     icon: <ToothDoodle className="w-12 h-12" />,
   },
   {
     slug: "professional",
-    name: "Professional services",
-    text: "Clients are choosing a person, not a product. We build credibility first, then make it easy to book a first conversation.",
+    name: "Professional Services",
+    text: "Authority-driven marketing designed to build credibility and generate high-quality enquiries.",
     tilt: "-rotate-[1.5deg]",
     icon: <CalculatorDoodle className="w-12 h-12" />,
   },
   {
     slug: "finance",
-    name: "Finance and investment",
-    text: "Longer decisions, more questions. We build education, careful follow-up, and messaging written with compliance in mind.",
+    name: "Finance & Investment",
+    text: "Compliance-aware digital strategies that support education, trust-building, and long-term growth.",
     tilt: "rotate-[1.5deg]",
     icon: <KeyDoodle className="w-12 h-12" />,
   },
@@ -45,12 +45,10 @@ const industryList: IndustryCardData[] = [
 export function IndustriesSection() {
   const handleSeeExample = (slug: string, e: React.MouseEvent) => {
     e.preventDefault();
-    // Dispatch custom event to switch the tab
     window.dispatchEvent(
       new CustomEvent("marketinc-select-industry", { detail: slug })
     );
 
-    // Scroll to the hero demo container smoothly
     const el = document.getElementById("hero-demo-container");
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -68,11 +66,11 @@ export function IndustriesSection() {
           id="industries-heading"
           className="text-display-l text-white font-bold tracking-[-0.03em] m-0 mb-4 inline-flex items-center gap-3"
         >
-          <span>Built around how your customers book</span>
+          <span>Built for industries that need consistent leads, not just visibility.</span>
           <Spark color="mint" />
         </h2>
         <p className="font-body text-body-l text-mist leading-[1.45] m-0">
-          Different industries lose leads at different points on the line.
+          No matter the size of your business or industry, we help you generate consistent, qualified enquiries.
         </p>
       </div>
 

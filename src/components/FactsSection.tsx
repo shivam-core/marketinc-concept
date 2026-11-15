@@ -4,42 +4,57 @@ import { DesignNoteCard } from "./DesignNotes";
 
 export function FactsSection() {
   return (
-    <section aria-label="Three facts about MarketInc" className="container-site py-12 lg:py-16 border-t border-line">
+    <section aria-label="Core pillars of MarketInc" className="container-site py-12 lg:py-16 border-t border-line">
       <DesignNoteCard
         number={4}
-        title="Honest facts instead of invented numbers"
-        note="The page shows three true things about MarketInc. Real results go in one clearly marked section until the team supplies them."
+        title="Service-focused growth"
+        note="MarketInc works exclusively with service businesses, building integrated systems across search, social, web, and CRM."
         arrowDirection="down-right"
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
-        {/* Fact 1: Mint / Ringing phone */}
-        <div className="flex items-center md:flex-col md:text-center gap-4 lg:gap-5 p-4 rounded-[16px] bg-navy-raised/50 border border-line/60">
-          <ScallopedBadge color="mint">
-            <PhoneDoodle className="w-10 h-10" />
-          </ScallopedBadge>
-          <p className="font-display font-bold text-[1.125rem] sm:text-[1.25rem] text-white m-0">
-            Service businesses only
+        {/* Fact 1: Service-Focused */}
+        <div className="flex flex-col gap-3 p-6 rounded-[20px] bg-navy-raised/60 border border-line/60">
+          <div className="flex items-center gap-3">
+            <ScallopedBadge color="mint">
+              <PhoneDoodle className="w-10 h-10" />
+            </ScallopedBadge>
+            <h3 className="font-display font-bold text-[1.25rem] text-white m-0">
+              Service-Focused
+            </h3>
+          </div>
+          <p className="font-body text-[0.9375rem] text-mist leading-relaxed m-0">
+            We work exclusively with service-based businesses. Strategies built around real customer behaviour, local demand, and lead-driven growth.
           </p>
         </div>
 
-        {/* Fact 2: Sky / Magnifying glass */}
-        <div className="flex items-center md:flex-col md:text-center gap-4 lg:gap-5 p-4 rounded-[16px] bg-navy-raised/50 border border-line/60">
-          <ScallopedBadge color="sky">
-            <MagnifierDoodle className="w-10 h-10" />
-          </ScallopedBadge>
-          <p className="font-display font-bold text-[1.125rem] sm:text-[1.25rem] text-white m-0">
-            Based in Sydney
+        {/* Fact 2: Integrated Systems */}
+        <div className="flex flex-col gap-3 p-6 rounded-[20px] bg-navy-raised/60 border border-line/60">
+          <div className="flex items-center gap-3">
+            <ScallopedBadge color="sky">
+              <MagnifierDoodle className="w-10 h-10" />
+            </ScallopedBadge>
+            <h3 className="font-display font-bold text-[1.25rem] text-white m-0">
+              Integrated Systems
+            </h3>
+          </div>
+          <p className="font-body text-[0.9375rem] text-mist leading-relaxed m-0">
+            Growth doesn&apos;t come from one channel alone. Your website, ads, SEO, and CRM work together to attract leads and improve conversion.
           </p>
         </div>
 
-        {/* Fact 3: Butter / Diary with tick */}
-        <div className="flex items-center md:flex-col md:text-center gap-4 lg:gap-5 p-4 rounded-[16px] bg-navy-raised/50 border border-line/60">
-          <ScallopedBadge color="butter">
-            <DiaryDoodle className="w-10 h-10" />
-          </ScallopedBadge>
-          <p className="font-display font-bold text-[1.125rem] sm:text-[1.25rem] text-white m-0">
-            A reply within one working day
+        {/* Fact 3: Proven Results */}
+        <div className="flex flex-col gap-3 p-6 rounded-[20px] bg-navy-raised/60 border border-line/60">
+          <div className="flex items-center gap-3">
+            <ScallopedBadge color="butter">
+              <DiaryDoodle className="w-10 h-10" />
+            </ScallopedBadge>
+            <h3 className="font-display font-bold text-[1.25rem] text-white m-0">
+              Proven Results
+            </h3>
+          </div>
+          <p className="font-body text-[0.9375rem] text-mist leading-relaxed m-0">
+            Shaped by real campaigns and data. We focus on what consistently delivers results over time, not trends or vanity metrics.
           </p>
         </div>
       </div>
